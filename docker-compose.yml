@@ -1,0 +1,43 @@
+
+version: '3.8'
+
+services:
+  oracle-clientes:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle-clientes
+    restart: always
+    shm_size: '1gb'
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    environment:
+      - ORACLE_PASSWORD=inmobiliaria123
+      - APP_USER=cliente_inmobiliaria
+      - APP_USER_PASSWORD=clientes_pass
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_clientes_data:/opt/oracle/oradata
+
+  oracle-atencion:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle-atencion
+    restart: always
+    shm_size: '1gb'
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    environment:
+      - ORACLE_PASSWORD=inmobiliaria123
+      - APP_USER=atencion_inmobiliaria
+      - APP_USER_PASSWORD=atencion_pass
+    ports:
+      - "1522:1521"
+    volumes:
+      - oracle_atencion_data:/opt/oracle/oradata
+
+volumes:
+  oracle_clientes_data:
+  oracle_atencion_data:
