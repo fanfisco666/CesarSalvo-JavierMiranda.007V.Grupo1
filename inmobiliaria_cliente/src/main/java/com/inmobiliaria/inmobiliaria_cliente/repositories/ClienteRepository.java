@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends JpaRepository<ClienteModel, Long> {
 
-    Optional<ClienteModel> findByRut(String rut);
-    boolean existsByRut(String rut);
+    Optional<ClienteModel> findByRutCliente(String rut);
+    boolean existsByRutCliente(String rut);
 }

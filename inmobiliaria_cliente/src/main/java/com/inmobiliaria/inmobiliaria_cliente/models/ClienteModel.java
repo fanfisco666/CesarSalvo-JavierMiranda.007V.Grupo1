@@ -10,17 +10,18 @@ public class ClienteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "IDCLIENTE")
+    private Long idCliente;
 
-    @Column(nullable = false, unique = true, length = 13)
-    private String rut;
+    @Column(name = "RUTCLIENTE",nullable = false, unique = true, length = 13)
+    private String rutCliente;
 
-    @Column(nullable = false, length = 100)
-    private String nombre;
+    @Column(name = "NOMBRECLIENTE",nullable = false, length = 100)
+    private String nombreCliente;
 
-    @Column(name = "apellidos", nullable = false, length = 150)
-    private String apellidos;
+    @Column(name = "APELLIDOSCLIENTE", nullable = false, length = 150)
+    private String apellidosCliente;
 
-    @Column(nullable = false, length = 150)
-    private String correo;
+    @Column(name = "CORREOCLIENTE",nullable = false, length = 150)
+    private String correoCliente;
 }
