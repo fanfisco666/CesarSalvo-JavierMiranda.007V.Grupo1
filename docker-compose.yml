@@ -1,43 +1,33 @@
-
 version: '3.8'
 
 services:
-  oracle-clientes:
-    image: gvenzl/oracle-xe:latest
-    container_name: oracle-clientes
-    restart: always
-    shm_size: '1gb'
-    deploy:
-      resources:
-        limits:
-          memory: 2g
-    environment:
-      - ORACLE_PASSWORD=inmobiliaria123
-      - APP_USER=cliente_inmobiliaria
-      - APP_USER_PASSWORD=clientes_pass
-    ports:
-      - "1521:1521"
-    volumes:
-      - oracle_clientes_data:/opt/oracle/oradata
 
-  oracle-atencion:
-    image: gvenzl/oracle-xe:latest
-    container_name: oracle-atencion
+  # Base de datos para inmobiliaria-cliente
+  mysql-clientes:
+    image: mysql:8.0
+    container_name: mysql-clientes
     restart: always
-    shm_size: '1gb'
-    deploy:
-      resources:
-        limits:
-          memory: 2g
     environment:
-      - ORACLE_PASSWORD=inmobiliaria123
-      - APP_USER=atencion_inmobiliaria
-      - APP_USER_PASSWORD=atencion_pass
+      MYSQL_ROOT_PASSWORD: Chochex1367*
+      MYSQL_DATABASE: inmobiliaria_db
     ports:
-      - "1522:1521"
+      - "3306:3306"
     volumes:
-      - oracle_atencion_data:/opt/oracle/oradata
+      - mysql_clientes_data:/var/lib/mysql
+
+  # Cuando agregues más microservicios, cada uno con su propia BD
+  # mysql-propiedades:
+  #   image: mysql:8.0
+  #   container_name: mysql-propiedades
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: Chochex1367*
+  #     MYSQL_DATABASE: inmobiliaria_propiedades_db
+  #   ports:
+  #     - "3307:3306"
+  #   volumes:
+  #     - mysql_propiedades_data:/var/lib/mysql
 
 volumes:
-  oracle_clientes_data:
-  oracle_atencion_data:
+  mysql_clientes_data:
+  # mysql_propiedades_data:

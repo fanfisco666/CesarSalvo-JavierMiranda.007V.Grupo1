@@ -6,19 +6,20 @@ import lombok.Data;
 
 @Data
 public class ClienteRequest {
-    @NotBlank(message = "El rut es obligatorio")
+    @NotBlank(message = "El RUT es obligatorio")
+    @Size(max = 13)
     private String rutCliente;
 
     @NotBlank(message = "El nombre es obligatorio")
+    @Size(max = 100)
     private String nombreCliente;
 
-    @NotBlank(message = "El apellido es obligatorio")
+    @NotBlank(message = "Los apellidos son obligatorios")
+    @Size(max = 150)
     private String apellidosCliente;
 
-    @NotNull(message = "El id del cliente es obligatorio")
-    @Positive(message = "El id del cliente debe ser mayor a 0")
-    private Long idCliente;
-
     @NotBlank(message = "El correo es obligatorio")
+    @Email(message = "Formato de correo inválido")
+    @Size(max = 150)
     private String correoCliente;
 }
