@@ -1,6 +1,6 @@
-package com.inmobiliaria.inmobiliaria_contrato.exceptions;
+package com.inmobiliaria.inmobiliaria_pago.exceptions;
 
-import com.inmobiliaria.inmobiliaria_contrato.dtos.response.ErrorResponse;
+import com.inmobiliaria.inmobiliaria_pago.dtos.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
