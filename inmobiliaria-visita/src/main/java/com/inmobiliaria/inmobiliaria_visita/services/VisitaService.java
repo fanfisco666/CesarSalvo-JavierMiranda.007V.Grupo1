@@ -2,7 +2,9 @@ package com.inmobiliaria.inmobiliaria_visita.services;
 
 import com.inmobiliaria.inmobiliaria_visita.client.AgenteClient;
 import com.inmobiliaria.inmobiliaria_visita.client.ClienteClient;
+import com.inmobiliaria.inmobiliaria_visita.client.NotificacionClient;
 import com.inmobiliaria.inmobiliaria_visita.client.PropiedadClient;
+import com.inmobiliaria.inmobiliaria_visita.dtos.request.NotificacionRequest;
 import com.inmobiliaria.inmobiliaria_visita.dtos.request.VisitaRequest;
 import com.inmobiliaria.inmobiliaria_visita.dtos.response.VisitaResponse;
 import com.inmobiliaria.inmobiliaria_visita.exceptions.NotFoundException;
@@ -26,15 +28,18 @@ public class VisitaService {
     private final ClienteClient clienteClient;
     private final PropiedadClient propiedadClient;
     private final AgenteClient agenteClient;
+    private final NotificacionClient notificacionClient;
 
     public VisitaService(VisitaRepository visitaRepository,
                          ClienteClient clienteClient,
                          PropiedadClient propiedadClient,
-                         AgenteClient agenteClient) {
+                         AgenteClient agenteClient,
+                         NotificacionClient notificacionClient) {
         this.visitaRepository = visitaRepository;
         this.clienteClient = clienteClient;
         this.propiedadClient = propiedadClient;
         this.agenteClient = agenteClient;
+        this.notificacionClient = notificacionClient;
     }
 
     public List<VisitaResponse> obtenerTodos() {
@@ -122,6 +127,17 @@ public class VisitaService {
 
         VisitaModel visitaGuardada = visitaRepository.save(modelo);
         log.info("Visita agendada exitosamente con ID: {}", visitaGuardada.getIdVisita());
+        try {
+            notificacionClient.enviarNotificacion(new NotificacionRequest(
+                    visitaGuardada.getIdCliente(),
+                    "VISITA_AGENDADA",
+                    "Su visita ha sido agendada para el " + visitaGuardada.getFechaVisita(),
+                    "VISITA-" + visitaGuardada.getIdVisita()
+            ));
+            log.info("Notificacion enviada para visita ID: {}", visitaGuardada.getIdVisita());
+        } catch (Exception e) {
+            log.warn("No se pudo enviar notificacion para visita ID: {}", visitaGuardada.getIdVisita());
+        }
         return toResponse(visitaGuardada);
     }
 
@@ -156,6 +172,17 @@ public class VisitaService {
         visita.setEstado(nuevoEstado);
         VisitaModel visitaActualizada = visitaRepository.save(visita);
         log.info("Estado de visita ID: {} cambiado a {}", id, nuevoEstado);
+        try {
+            notificacionClient.enviarNotificacion(new NotificacionRequest(
+                    visitaActualizada.getIdCliente(),
+                    "VISITA_CANCELADA",
+                    "Su visita del " + visitaActualizada.getFechaVisita() + " ha sido " + nuevoEstado,
+                    "VISITA-" + visitaActualizada.getIdVisita()
+            ));
+            log.info("Notificacion de cambio estado enviada para visita ID: {}", id);
+        } catch (Exception e) {
+            log.warn("No se pudo enviar notificacion de estado para visita ID: {}", id);
+        }
         return toResponse(visitaActualizada);
     }
 

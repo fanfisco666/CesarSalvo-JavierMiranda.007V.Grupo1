@@ -2,6 +2,7 @@ package com.inmobiliaria.inmobiliaria_contrato.services;
 
 import com.inmobiliaria.inmobiliaria_contrato.client.*;
 import com.inmobiliaria.inmobiliaria_contrato.dtos.request.ContratoRequest;
+import com.inmobiliaria.inmobiliaria_contrato.dtos.request.NotificacionRequest;
 import com.inmobiliaria.inmobiliaria_contrato.dtos.response.ContratoResponse;
 import com.inmobiliaria.inmobiliaria_contrato.dtos.response.PropiedadResponse;
 import com.inmobiliaria.inmobiliaria_contrato.dtos.response.VisitaResponse;
@@ -28,18 +29,22 @@ public class ContratoService {
     private final PropiedadClient propiedadClient;
     private final AgenteClient agenteClient;
     private final VisitaClient visitaClient;
+    private final NotificacionClient notificacionClient;
 
     public ContratoService(ContratoRepository contratoRepository,
                            ClienteClient clienteClient,
                            PropiedadClient propiedadClient,
                            AgenteClient agenteClient,
-                           VisitaClient visitaClient) {
+                           VisitaClient visitaClient,
+                           NotificacionClient notificacionClient) {
         this.contratoRepository = contratoRepository;
         this.clienteClient = clienteClient;
         this.propiedadClient = propiedadClient;
         this.agenteClient = agenteClient;
         this.visitaClient = visitaClient;
+        this.notificacionClient = notificacionClient;
     }
+
 
     public List<ContratoResponse> obtenerTodos() {
         log.info("Obteniendo lista de todos los contratos");
@@ -148,6 +153,18 @@ public class ContratoService {
         ContratoModel contratoGuardado = contratoRepository.save(modelo);
         log.info("Contrato creado exitosamente con ID: {}, monto: {}",
                 contratoGuardado.getIdContrato(), montoTotal);
+        try {
+            notificacionClient.enviarNotificacion(new NotificacionRequest(
+                    contratoGuardado.getIdCliente(),
+                    "CONTRATO_CREADO",
+                    "Su contrato de " + contratoGuardado.getTipoContrato() +
+                            " ha sido creado por un monto de $" + contratoGuardado.getMontoTotal(),
+                    "CONTRATO-" + contratoGuardado.getIdContrato()
+            ));
+            log.info("Notificacion enviada para contrato ID: {}", contratoGuardado.getIdContrato());
+        } catch (Exception e) {
+            log.warn("No se pudo enviar notificacion para contrato ID: {}", contratoGuardado.getIdContrato());
+        }
         return toResponse(contratoGuardado);
     }
 
@@ -158,6 +175,17 @@ public class ContratoService {
         contrato.setEstado(nuevoEstado);
         ContratoModel actualizado = contratoRepository.save(contrato);
         log.info("Estado de contrato ID: {} cambiado a {}", id, nuevoEstado);
+        try {
+            notificacionClient.enviarNotificacion(new NotificacionRequest(
+                    actualizado.getIdCliente(),
+                    "CONTRATO_VENCIDO",
+                    "El estado de su contrato ha cambiado a: " + nuevoEstado,
+                    "CONTRATO-" + actualizado.getIdContrato()
+            ));
+            log.info("Notificacion de cambio estado enviada para contrato ID: {}", id);
+        } catch (Exception e) {
+            log.warn("No se pudo enviar notificacion de estado para contrato ID: {}", id);
+        }
         return toResponse(actualizado);
     }
 
