@@ -11,7 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_db
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_clientes_data:/var/lib/mysql
 
@@ -24,7 +24,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_auth_db
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - mysql_auth_data:/var/lib/mysql
 
@@ -37,7 +37,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_propiedades_db
     ports:
-      - "3308:3306"
+      - "3309:3306"
     volumes:
       - mysql_propiedades_data:/var/lib/mysql
 
@@ -50,7 +50,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_agentes_db
     ports:
-      - "3309:3306"
+      - "3310:3306"
     volumes:
       - mysql_agentes_data:/var/lib/mysql
 
@@ -63,7 +63,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_visitas_db
     ports:
-      - "3310:3306"
+      - "3311:3306"
     volumes:
       - mysql_visitas_data:/var/lib/mysql
 
@@ -76,7 +76,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_contratos_db
     ports:
-      - "3311:3306"
+      - "3312:3306"
     volumes:
       - mysql_contratos_data:/var/lib/mysql
 
@@ -89,7 +89,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_pagos_db
     ports:
-      - "3312:3306"
+      - "3313:3306"
     volumes:
       - mysql_pagos_data:/var/lib/mysql
 
@@ -102,7 +102,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_notificaciones_db
     ports:
-      - "3313:3306"
+      - "3314:3306"
     volumes:
       - mysql_notificaciones_data:/var/lib/mysql
 
@@ -115,7 +115,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_reportes_db
     ports:
-      - "3314:3306"
+      - "3315:3306"
     volumes:
       - mysql_reportes_data:/var/lib/mysql
 
@@ -128,7 +128,7 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_mantenciones_db
     ports:
-      - "3315:3306"
+      - "3316:3306"
     volumes:
       - mysql_mantenciones_data:/var/lib/mysql
 
