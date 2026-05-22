@@ -2,8 +2,10 @@ package com.inmobiliaria.inmobiliaria_reporte;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+@EnableFeignClients
 public class InmobiliariaReporteApplication {
 
 	public static void main(String[] args) {
