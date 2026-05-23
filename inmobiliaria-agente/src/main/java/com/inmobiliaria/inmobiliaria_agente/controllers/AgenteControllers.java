@@ -17,9 +17,11 @@ import com.inmobiliaria.inmobiliaria_agente.dtos.response.AgenteResponse;
 import com.inmobiliaria.inmobiliaria_agente.services.AgenteService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
-@RequestMapping("api/v1/Agente")
+@RequestMapping("api/v1/agente")
 public class AgenteControllers {
 
     private final AgenteService agenteService;
@@ -30,11 +32,13 @@ public class AgenteControllers {
 
     @GetMapping
     public List<AgenteResponse> listar() {
+        log.info("Listando todos los agentes");
         return agenteService.obtenerTodos();
     }
 
     @PostMapping
     public ResponseEntity<AgenteResponse> guardar(@Valid @RequestBody AgenteRequest request) {
+        log.info("Guardando nuevo agente");
         AgenteResponse response = agenteService.guardar(request);
         return ResponseEntity.ok(response);
     }
@@ -43,11 +47,13 @@ public class AgenteControllers {
     public ResponseEntity<AgenteResponse> actualizar(
             @PathVariable Long id,
             @Valid @RequestBody AgenteRequest request) {
+        log.info("Actualizando agente con ID: {}", id);
         return ResponseEntity.ok(agenteService.actualizar(id, request));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        log.info("Eliminando agente con ID: {}", id);
         agenteService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
