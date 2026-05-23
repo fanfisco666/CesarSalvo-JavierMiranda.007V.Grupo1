@@ -17,7 +17,9 @@ import com.inmobiliaria.inmobiliaria_propiedad.dtos.response.PropiedadResponse;
 import com.inmobiliaria.inmobiliaria_propiedad.services.PropiedadService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("api/v1/Propiedad")
 public class PropiedadControllers {
@@ -30,11 +32,13 @@ public class PropiedadControllers {
 
     @GetMapping
     public List<PropiedadResponse> listar() {
+        log.info("Listando todas las propiedades");
         return propiedadService.obtenerTodos();
     }
 
     @PostMapping
     public ResponseEntity<PropiedadResponse> guardar(@Valid @RequestBody PropiedadRequest request) {
+        log.info("Guardando nueva propiedad");
         PropiedadResponse response = propiedadService.guardar(request);
         return ResponseEntity.ok(response);
     }
@@ -43,11 +47,13 @@ public class PropiedadControllers {
     public ResponseEntity<PropiedadResponse> actualizar(
             @PathVariable Long id,
             @Valid @RequestBody PropiedadRequest request) {
+        log.info("Actualizando propiedad con ID: {}", id);
         return ResponseEntity.ok(propiedadService.actualizar(id, request));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        log.info("Eliminando propiedad con ID: {}", id);
         propiedadService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
