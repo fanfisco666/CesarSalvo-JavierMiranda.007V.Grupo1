@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
 
-  # BD de clientes
+  # ── BASES DE DATOS ──────────────────────────────────────
+
   mysql-clientes:
     image: mysql:8.0
     container_name: mysql-clientes
@@ -11,11 +12,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_db
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - mysql_clientes_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de auth
   mysql-auth:
     image: mysql:8.0
     container_name: mysql-auth
@@ -24,11 +29,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_auth_db
     ports:
-      - "3308:3306"
+      - "3307:3306"
     volumes:
       - mysql_auth_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de propiedades (compañero)
   mysql-propiedades:
     image: mysql:8.0
     container_name: mysql-propiedades
@@ -37,11 +46,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_propiedades_db
     ports:
-      - "3309:3306"
+      - "3308:3306"
     volumes:
       - mysql_propiedades_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de agentes (compañero)
   mysql-agentes:
     image: mysql:8.0
     container_name: mysql-agentes
@@ -50,11 +63,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_agentes_db
     ports:
-      - "3310:3306"
+      - "3309:3306"
     volumes:
       - mysql_agentes_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de visitas
   mysql-visitas:
     image: mysql:8.0
     container_name: mysql-visitas
@@ -63,11 +80,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_visitas_db
     ports:
-      - "3311:3306"
+      - "3310:3306"
     volumes:
       - mysql_visitas_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de contratos
   mysql-contratos:
     image: mysql:8.0
     container_name: mysql-contratos
@@ -76,11 +97,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_contratos_db
     ports:
-      - "3312:3306"
+      - "3311:3306"
     volumes:
       - mysql_contratos_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de pagos
   mysql-pagos:
     image: mysql:8.0
     container_name: mysql-pagos
@@ -89,11 +114,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_pagos_db
     ports:
-      - "3313:3306"
+      - "3312:3306"
     volumes:
       - mysql_pagos_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de notificaciones
   mysql-notificaciones:
     image: mysql:8.0
     container_name: mysql-notificaciones
@@ -102,11 +131,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_notificaciones_db
     ports:
-      - "3314:3306"
+      - "3313:3306"
     volumes:
       - mysql_notificaciones_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de reportes
   mysql-reportes:
     image: mysql:8.0
     container_name: mysql-reportes
@@ -115,11 +148,15 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_reportes_db
     ports:
-      - "3315:3306"
+      - "3314:3306"
     volumes:
       - mysql_reportes_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # BD de mantenciones
   mysql-mantenciones:
     image: mysql:8.0
     container_name: mysql-mantenciones
@@ -128,9 +165,180 @@ services:
       MYSQL_ROOT_PASSWORD: Chochex1367*
       MYSQL_DATABASE: inmobiliaria_mantenciones_db
     ports:
-      - "3316:3306"
+      - "3315:3306"
     volumes:
       - mysql_mantenciones_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── MICROSERVICIOS ──────────────────────────────────────
+
+  inmobiliaria-auth:
+    build: ./inmobiliaria-auth
+    container_name: inmobiliaria-auth
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-auth:3306/inmobiliaria_auth_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-auth:
+        condition: service_healthy
+
+  inmobiliaria-cliente:
+    build: ./inmobiliaria_cliente
+    container_name: inmobiliaria-cliente
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-clientes:3306/inmobiliaria_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-clientes:
+        condition: service_healthy
+
+  inmobiliaria-propiedad:
+    build: ./inmobiliaria-propiedad
+    container_name: inmobiliaria-propiedad
+    restart: always
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-propiedades:3306/inmobiliaria_propiedades_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-propiedades:
+        condition: service_healthy
+
+  inmobiliaria-agente:
+    build: ./inmobiliaria-agente
+    container_name: inmobiliaria-agente
+    restart: always
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-agentes:3306/inmobiliaria_agentes_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-agentes:
+        condition: service_healthy
+
+  inmobiliaria-notificacion:
+    build: ./inmobiliaria-notificacion
+    container_name: inmobiliaria-notificacion
+    restart: always
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-notificaciones:3306/inmobiliaria_notificaciones_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-notificaciones:
+        condition: service_healthy
+
+  inmobiliaria-visita:
+    build: ./inmobiliaria-visita
+    container_name: inmobiliaria-visita
+    restart: always
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-visitas:3306/inmobiliaria_visitas_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-visitas:
+        condition: service_healthy
+      inmobiliaria-cliente:
+        condition: service_started
+      inmobiliaria-propiedad:
+        condition: service_started
+      inmobiliaria-agente:
+        condition: service_started
+      inmobiliaria-notificacion:
+        condition: service_started
+
+  inmobiliaria-contrato:
+    build: ./inmobiliaria-contrato
+    container_name: inmobiliaria-contrato
+    restart: always
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-contratos:3306/inmobiliaria_contratos_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-contratos:
+        condition: service_healthy
+      inmobiliaria-visita:
+        condition: service_started
+      inmobiliaria-cliente:
+        condition: service_started
+      inmobiliaria-propiedad:
+        condition: service_started
+      inmobiliaria-agente:
+        condition: service_started
+      inmobiliaria-notificacion:
+        condition: service_started
+
+  inmobiliaria-pago:
+    build: ./inmobiliaria-pago
+    container_name: inmobiliaria-pago
+    restart: always
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-pagos:3306/inmobiliaria_pagos_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-pagos:
+        condition: service_healthy
+      inmobiliaria-contrato:
+        condition: service_started
+      inmobiliaria-cliente:
+        condition: service_started
+      inmobiliaria-notificacion:
+        condition: service_started
+
+  inmobiliaria-reporte:
+    build: ./inmobiliaria-reporte
+    container_name: inmobiliaria-reporte
+    restart: always
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-reportes:3306/inmobiliaria_reportes_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-reportes:
+        condition: service_healthy
+
+  inmobiliaria-mantencion:
+    build: ./inmobiliaria-mantencion
+    container_name: inmobiliaria-mantencion
+    restart: always
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-mantenciones:3306/inmobiliaria_mantenciones_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Chochex1367*
+    depends_on:
+      mysql-mantenciones:
+        condition: service_healthy
 
 volumes:
   mysql_clientes_data:
