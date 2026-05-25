@@ -19,14 +19,16 @@ import com.inmobiliaria.inmobiliaria_mantencion.dtos.response.MantencionResponse
 import com.inmobiliaria.inmobiliaria_mantencion.service.MantencionService;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/mantencion")
-@RequiredArgsConstructor
 public class MantencionController {
 
     private final MantencionService mantencionService;
+
+    public MantencionController(MantencionService mantencionService) {
+        this.mantencionService = mantencionService;
+    }
 
     @PostMapping
     public ResponseEntity<MantencionResponse> crear(@Valid @RequestBody MantencionRequest request) {

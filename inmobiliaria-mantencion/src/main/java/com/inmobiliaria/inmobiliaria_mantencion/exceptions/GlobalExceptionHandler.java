@@ -1,8 +1,11 @@
 package com.inmobiliaria.inmobiliaria_mantencion.exceptions;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.inmobiliaria.inmobiliaria_mantencion.dtos.response.ErrorResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,30 +16,61 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // maneja cuando no encuentra la mantencion
-    @ExceptionHandler(MantencionNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleMantencionNotFoundException(MantencionNotFoundException ex) {
-        Map<String, String> error = new HashMap<>();
-        error.put("error", ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-    // para manejar los errores de de las validaciones
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
-        Map<String, String> errores = new HashMap<>();
-        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            errores.put(fieldError.getField(), fieldError.getDefaultMessage());
+    public ResponseEntity<ErrorResponse> handleValidation(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest request
+    ){
+        Map<String, String> details = new HashMap<>();
+
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            details.put(error.getField(), error.getDefaultMessage());
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errores);
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Bad Request")
+                .message("Error de validación en los datos enviados")
+                .path(request.getRequestURI())
+                .details(details)
+                .build();
+
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
-    // maneja cualquier error
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleGeneral(Exception ex) {
-        Map<String, String> error = new HashMap<>();
-        error.put("error", "Error interno del servidor");
-        error.put("detalle", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(
+            NotFoundException ex,
+            HttpServletRequest request
+    ) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error("Not Found")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .details(null)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+
+    @ExceptionHandler(RemoteServiceException.class)
+    public ResponseEntity<ErrorResponse> handleRemoteService(
+            RemoteServiceException ex,
+            HttpServletRequest request
+    ) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_GATEWAY.value())
+                .error("Bad Gateway")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .details(null)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(errorResponse);
+    }
+
 }

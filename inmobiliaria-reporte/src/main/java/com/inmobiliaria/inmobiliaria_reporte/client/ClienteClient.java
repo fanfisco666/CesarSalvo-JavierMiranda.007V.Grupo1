@@ -4,12 +4,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.inmobiliaria.inmobiliaria_reporte.dtos.external.ClienteResponse;
+import com.inmobiliaria.inmobiliaria_reporte.dtos.response.ClienteResponse;
 
-@FeignClient(name = "cliente-service", url = "http://localhost:8081/api/v1/cliente")
+@FeignClient(name = "cliente-service", url = "http://localhost:8081")
 public interface ClienteClient {
 
-    @GetMapping("/{id}")
-    ClienteResponse obtenerClientePorId(@PathVariable Long id);
+    @GetMapping("/api/v1/clientes/{id}")
+    ClienteResponse obtenerClientePorId(@PathVariable("id") Long id);
 
 }

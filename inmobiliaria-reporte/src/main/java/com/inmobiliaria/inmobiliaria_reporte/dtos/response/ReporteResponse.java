@@ -1,9 +1,5 @@
 package com.inmobiliaria.inmobiliaria_reporte.dtos.response;
 
-import com.inmobiliaria.inmobiliaria_reporte.dtos.external.AgenteResponse;
-import com.inmobiliaria.inmobiliaria_reporte.dtos.external.ClienteResponse;
-import com.inmobiliaria.inmobiliaria_reporte.dtos.external.PropiedadResponse;
-
 import lombok.Builder;
 import lombok.Data;
 

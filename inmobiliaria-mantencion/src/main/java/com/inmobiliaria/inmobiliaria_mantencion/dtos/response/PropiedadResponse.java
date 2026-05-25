@@ -1,4 +1,4 @@
-package com.inmobiliaria.inmobiliaria_reporte.dtos.external;
+package com.inmobiliaria.inmobiliaria_mantencion.dtos.response;
 
 import lombok.Data;
 
