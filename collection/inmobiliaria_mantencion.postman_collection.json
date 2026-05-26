@@ -1,0 +1,294 @@
+{
+  "info": {
+    "name": "inmobiliaria_mantencion",
+    "_postman_id": "ms-mantencion-004",
+    "description": "Colección CRUD para el microservicio de Mantenciones - Spring Boot puerto 8090. Depende de agente (8081) y propiedad (8082).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8090", "type": "string" },
+    { "key": "mantencion_id", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todas las mantenciones",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un array', () => { pm.expect(pm.response.json()).to.be.an('array'); });",
+        "pm.test('Campos requeridos presentes', () => {",
+        "  const b = pm.response.json();",
+        "  if (b.length > 0) {",
+        "    pm.expect(b[0]).to.have.property('idMantencion');",
+        "    pm.expect(b[0]).to.have.property('descripcion');",
+        "    pm.expect(b[0]).to.have.property('estado');",
+        "    pm.expect(b[0]).to.have.property('fechaInicio');",
+        "    pm.expect(b[0]).to.have.property('agente');",
+        "    pm.expect(b[0]).to.have.property('propiedad');",
+        "  }",
+        "});",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/mantencion", "host": ["{{base_url}}"], "path": ["api","v1","mantencion"] }
+      }
+    },
+    {
+      "name": "2. Obtener mantención por ID",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Mantención tiene campos requeridos', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b).to.have.property('idMantencion');",
+        "  pm.expect(b).to.have.property('descripcion');",
+        "  pm.expect(b).to.have.property('estado');",
+        "  pm.expect(b).to.have.property('fechaInicio');",
+        "  pm.expect(b).to.have.property('agente');",
+        "  pm.expect(b).to.have.property('propiedad');",
+        "});",
+        "pm.test('Agente anidado tiene datos', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b.agente).to.be.an('object');",
+        "});",
+        "pm.test('Propiedad anidada tiene datos', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b.propiedad).to.be.an('object');",
+        "});",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/mantencion/{{mantencion_id}}", "host": ["{{base_url}}"], "path": ["api","v1","mantencion","{{mantencion_id}}"] }
+      }
+    },
+    {
+      "name": "3. Obtener mantenciones por estado=pendiente",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un array', () => { pm.expect(pm.response.json()).to.be.an('array'); });",
+        "pm.test('Todas tienen estado pendiente', () => {",
+        "  pm.response.json().forEach(m => pm.expect(m.estado).to.eql('pendiente'));",
+        "});"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/mantencion/estado?estado=pendiente",
+          "host": ["{{base_url}}"], "path": ["api","v1","mantencion","estado"],
+          "query": [{ "key": "estado", "value": "pendiente" }]
+        }
+      }
+    },
+    {
+      "name": "4. Obtener mantenciones por estado=en progreso",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un array', () => { pm.expect(pm.response.json()).to.be.an('array'); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/mantencion/estado?estado=en progreso",
+          "host": ["{{base_url}}"], "path": ["api","v1","mantencion","estado"],
+          "query": [{ "key": "estado", "value": "en progreso" }]
+        }
+      }
+    },
+    {
+      "name": "5. Obtener mantenciones por estado=completado",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un array', () => { pm.expect(pm.response.json()).to.be.an('array'); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/mantencion/estado?estado=completado",
+          "host": ["{{base_url}}"], "path": ["api","v1","mantencion","estado"],
+          "query": [{ "key": "estado", "value": "completado" }]
+        }
+      }
+    },
+    {
+      "name": "6. Crear mantención pendiente (POST)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 201 Created', () => { pm.response.to.have.status(201); });",
+        "pm.test('Mantención creada con datos correctos', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b).to.have.property('idMantencion');",
+        "  pm.expect(b.descripcion).to.eql('Revisión sistema eléctrico');",
+        "  pm.expect(b.estado).to.eql('pendiente');",
+        "  pm.expect(b).to.have.property('agente');",
+        "  pm.expect(b).to.have.property('propiedad');",
+        "});",
+        "const b = pm.response.json();",
+        "if (b && b.idMantencion) { pm.environment.set('mantencion_id', b.idMantencion); }",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descripcion\": \"Revisión sistema eléctrico\",\n  \"estado\": \"pendiente\",\n  \"fechaInicio\": \"2025-06-01\",\n  \"idAgente\": 1,\n  \"idPropiedad\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/v1/mantencion", "host": ["{{base_url}}"], "path": ["api","v1","mantencion"] }
+      }
+    },
+    {
+      "name": "7. Crear mantención completada con fechaFin (POST)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 201 Created', () => { pm.response.to.have.status(201); });",
+        "pm.test('Tiene fechaFin', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b).to.have.property('fechaFin');",
+        "  pm.expect(b.fechaFin).to.not.be.null;",
+        "});"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descripcion\": \"Pintura interior del departamento\",\n  \"estado\": \"completado\",\n  \"fechaInicio\": \"2025-05-01\",\n  \"fechaFin\": \"2025-05-15\",\n  \"idAgente\": 1,\n  \"idPropiedad\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/v1/mantencion", "host": ["{{base_url}}"], "path": ["api","v1","mantencion"] }
+      }
+    },
+    {
+      "name": "8. Actualizar mantención (PUT)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Estado actualizado a en progreso', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b.estado).to.eql('en progreso');",
+        "  pm.expect(b.descripcion).to.eql('Revisión sistema eléctrico - en ejecución');",
+        "});",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descripcion\": \"Revisión sistema eléctrico - en ejecución\",\n  \"estado\": \"en progreso\",\n  \"fechaInicio\": \"2025-06-01\",\n  \"idAgente\": 1,\n  \"idPropiedad\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/v1/mantencion/{{mantencion_id}}", "host": ["{{base_url}}"], "path": ["api","v1","mantencion","{{mantencion_id}}"] }
+      }
+    },
+    {
+      "name": "9. Eliminar mantención (DELETE)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 204 No Content', () => { pm.response.to.have.status(204); });",
+        "pm.test('Body vacío al eliminar', () => { pm.expect(pm.response.text()).to.be.empty; });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": { "raw": "{{base_url}}/api/v1/mantencion/{{mantencion_id}}", "host": ["{{base_url}}"], "path": ["api","v1","mantencion","{{mantencion_id}}"] }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. GET id inexistente → 404",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 404 Not Found', () => { pm.response.to.have.status(404); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "GET", "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/mantencion/99999", "host": ["{{base_url}}"], "path": ["api","v1","mantencion","99999"] }
+          }
+        },
+        {
+          "name": "N2. POST sin campos obligatorios → 400",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 400 Bad Request', () => { pm.response.to.have.status(400); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{base_url}}/api/v1/mantencion", "host": ["{{base_url}}"], "path": ["api","v1","mantencion"] }
+          }
+        },
+        {
+          "name": "N3. POST sin descripcion → 400",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 400 Bad Request', () => { pm.response.to.have.status(400); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"pendiente\",\n  \"fechaInicio\": \"2025-06-01\",\n  \"idAgente\": 1,\n  \"idPropiedad\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/v1/mantencion", "host": ["{{base_url}}"], "path": ["api","v1","mantencion"] }
+          }
+        },
+        {
+          "name": "N4. POST sin fechaInicio → 400",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 400 Bad Request', () => { pm.response.to.have.status(400); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Test sin fecha\",\n  \"estado\": \"pendiente\",\n  \"idAgente\": 1,\n  \"idPropiedad\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/v1/mantencion", "host": ["{{base_url}}"], "path": ["api","v1","mantencion"] }
+          }
+        },
+        {
+          "name": "N5. PUT id inexistente → 404",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 404 Not Found', () => { pm.response.to.have.status(404); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Test\",\n  \"estado\": \"pendiente\",\n  \"fechaInicio\": \"2025-06-01\",\n  \"idAgente\": 1,\n  \"idPropiedad\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/v1/mantencion/99999", "host": ["{{base_url}}"], "path": ["api","v1","mantencion","99999"] }
+          }
+        },
+        {
+          "name": "N6. DELETE id inexistente → 404",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 404 Not Found', () => { pm.response.to.have.status(404); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "DELETE", "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/mantencion/99999", "host": ["{{base_url}}"], "path": ["api","v1","mantencion","99999"] }
+          }
+        }
+      ]
+    }
+  ]
+}

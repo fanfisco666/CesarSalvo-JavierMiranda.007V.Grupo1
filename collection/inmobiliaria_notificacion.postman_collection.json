@@ -1,0 +1,283 @@
+{
+  "info": {
+    "name": "inmobiliaria_notificacion",
+    "_postman_id": "ms-notificacion-005",
+    "description": "Colección CRUD para el microservicio de Notificaciones - Spring Boot puerto 8087",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8087", "type": "string" },
+    { "key": "notificacion_id", "value": "1", "type": "string" },
+    { "key": "cliente_id", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todas las notificaciones",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un array', () => { pm.expect(pm.response.json()).to.be.an('array'); });",
+        "pm.test('Campos requeridos presentes', () => {",
+        "  const b = pm.response.json();",
+        "  if (b.length > 0) {",
+        "    pm.expect(b[0]).to.have.property('idNotificacion');",
+        "    pm.expect(b[0]).to.have.property('idCliente');",
+        "    pm.expect(b[0]).to.have.property('tipo');",
+        "    pm.expect(b[0]).to.have.property('mensaje');",
+        "    pm.expect(b[0]).to.have.property('leida');",
+        "    pm.expect(b[0]).to.have.property('fechaEnvio');",
+        "  }",
+        "});",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones"] }
+      }
+    },
+    {
+      "name": "2. Obtener notificación por ID",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Notificación tiene campos requeridos', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b).to.have.property('idNotificacion');",
+        "  pm.expect(b).to.have.property('idCliente');",
+        "  pm.expect(b).to.have.property('tipo');",
+        "  pm.expect(b).to.have.property('mensaje');",
+        "  pm.expect(b).to.have.property('leida');",
+        "  pm.expect(b).to.have.property('fechaEnvio');",
+        "});",
+        "pm.test('leida es booleano', () => {",
+        "  pm.expect(pm.response.json().leida).to.be.a('boolean');",
+        "});",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones/{{notificacion_id}}", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","{{notificacion_id}}"] }
+      }
+    },
+    {
+      "name": "3. Obtener notificaciones por cliente",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un array', () => { pm.expect(pm.response.json()).to.be.an('array'); });",
+        "pm.test('Todas pertenecen al mismo cliente', () => {",
+        "  const idCliente = parseInt(pm.variables.get('cliente_id'));",
+        "  pm.response.json().forEach(n => pm.expect(n.idCliente).to.eql(idCliente));",
+        "});"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones/cliente/{{cliente_id}}", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","cliente","{{cliente_id}}"] }
+      }
+    },
+    {
+      "name": "4. Obtener notificaciones NO leídas por cliente",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un array', () => { pm.expect(pm.response.json()).to.be.an('array'); });",
+        "pm.test('Todas tienen leida=false', () => {",
+        "  pm.response.json().forEach(n => pm.expect(n.leida).to.eql(false));",
+        "});"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones/cliente/{{cliente_id}}/no-leidas", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","cliente","{{cliente_id}}","no-leidas"] }
+      }
+    },
+    {
+      "name": "5. Contar notificaciones no leídas por cliente",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Respuesta es un número', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b).to.be.a('number');",
+        "  pm.expect(b).to.be.at.least(0);",
+        "});",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones/cliente/{{cliente_id}}/contar-no-leidas", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","cliente","{{cliente_id}}","contar-no-leidas"] }
+      }
+    },
+    {
+      "name": "6. Crear notificación VISITA_AGENDADA (POST)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Notificación creada correctamente', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b).to.have.property('idNotificacion');",
+        "  pm.expect(b.tipo).to.eql('VISITA_AGENDADA');",
+        "  pm.expect(b.leida).to.eql(false);",
+        "  pm.expect(b).to.have.property('fechaEnvio');",
+        "});",
+        "const b = pm.response.json();",
+        "if (b && b.idNotificacion) { pm.environment.set('notificacion_id', b.idNotificacion); }",
+        "pm.test('Tiempo de respuesta menor a 2000ms', () => { pm.expect(pm.response.responseTime).to.be.below(2000); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"idCliente\": 1,\n  \"tipo\": \"VISITA_AGENDADA\",\n  \"mensaje\": \"Su visita ha sido agendada para el 10 de junio a las 10:00\",\n  \"referencia\": \"VISITA-001\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones"] }
+      }
+    },
+    {
+      "name": "7. Crear notificación CONTRATO_CREADO (POST)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Tipo es CONTRATO_CREADO', () => { pm.expect(pm.response.json().tipo).to.eql('CONTRATO_CREADO'); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"idCliente\": 1,\n  \"tipo\": \"CONTRATO_CREADO\",\n  \"mensaje\": \"Su contrato de arriendo ha sido generado exitosamente\",\n  \"referencia\": \"CONTRATO-001\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones"] }
+      }
+    },
+    {
+      "name": "8. Crear notificación PAGO_PENDIENTE (POST)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Tipo es PAGO_PENDIENTE', () => { pm.expect(pm.response.json().tipo).to.eql('PAGO_PENDIENTE'); });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"idCliente\": 1,\n  \"tipo\": \"PAGO_PENDIENTE\",\n  \"mensaje\": \"Tiene un pago pendiente por $350.000 con vencimiento el 30 de junio\",\n  \"referencia\": \"PAGO-001\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones"] }
+      }
+    },
+    {
+      "name": "9. Marcar notificación como leída (PATCH)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200 OK', () => { pm.response.to.have.status(200); });",
+        "pm.test('Notificación marcada como leída', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b.leida).to.eql(true);",
+        "});",
+        "pm.test('ID coincide', () => {",
+        "  const b = pm.response.json();",
+        "  pm.expect(b.idNotificacion.toString()).to.eql(pm.variables.get('notificacion_id'));",
+        "});"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones/{{notificacion_id}}/leer", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","{{notificacion_id}}","leer"] }
+      }
+    },
+    {
+      "name": "10. Eliminar notificación (DELETE)",
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 204 No Content', () => { pm.response.to.have.status(204); });",
+        "pm.test('Body vacío al eliminar', () => { pm.expect(pm.response.text()).to.be.empty; });"
+      ], "type": "text/javascript" } }],
+      "request": {
+        "method": "DELETE", "header": [],
+        "url": { "raw": "{{base_url}}/api/v1/notificaciones/{{notificacion_id}}", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","{{notificacion_id}}"] }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. GET id inexistente → 404",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 404 Not Found', () => { pm.response.to.have.status(404); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "GET", "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/notificaciones/99999", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","99999"] }
+          }
+        },
+        {
+          "name": "N2. POST sin campos obligatorios → 400",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 400 Bad Request', () => { pm.response.to.have.status(400); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{base_url}}/api/v1/notificaciones", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones"] }
+          }
+        },
+        {
+          "name": "N3. POST tipo inválido → 400",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 400 Bad Request', () => { pm.response.to.have.status(400); });",
+            "pm.test('Error menciona tipo no válido', () => {",
+            "  pm.expect(pm.response.text().toLowerCase()).to.include('tipo');",
+            "});"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": 1,\n  \"tipo\": \"TIPO_INEXISTENTE\",\n  \"mensaje\": \"Mensaje de prueba\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/v1/notificaciones", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones"] }
+          }
+        },
+        {
+          "name": "N4. POST mensaje excede 500 caracteres → 400",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 400 Bad Request', () => { pm.response.to.have.status(400); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": 1,\n  \"tipo\": \"PAGO_PENDIENTE\",\n  \"mensaje\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/v1/notificaciones", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones"] }
+          }
+        },
+        {
+          "name": "N5. PATCH leer en id inexistente → 404",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 404 Not Found', () => { pm.response.to.have.status(404); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "PATCH", "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/notificaciones/99999/leer", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","99999","leer"] }
+          }
+        },
+        {
+          "name": "N6. DELETE id inexistente → 404",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Status 404 Not Found', () => { pm.response.to.have.status(404); });"
+          ], "type": "text/javascript" } }],
+          "request": {
+            "method": "DELETE", "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/notificaciones/99999", "host": ["{{base_url}}"], "path": ["api","v1","notificaciones","99999"] }
+          }
+        }
+      ]
+    }
+  ]
+}

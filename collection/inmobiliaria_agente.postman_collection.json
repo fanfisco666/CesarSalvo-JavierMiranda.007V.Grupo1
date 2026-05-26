@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "inmobiliaria_agente",
+    "_postman_id": "ms-agente-002",
+    "description": "Colección CRUD para el microservicio de Agentes - Spring Boot puerto 8083",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8083", "type": "string" },
+    { "key": "agente_id", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todos los agentes",
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Status 200 OK', () => {",
+            "  pm.response.to.have.status(200);",
+            "});",
+            "pm.test('Respuesta es un array', () => {",
+            "  const b = pm.response.json();",
+            "  pm.expect(b).to.be.an('array');",
+            "});",
+            "pm.test('Cada agente tiene los campos requeridos', () => {",
+            "  const b = pm.response.json();",
+            "  if (b.length > 0) {",
+            "    pm.expect(b[0]).to.have.property('idAgente');",
+            "    pm.expect(b[0]).to.have.property('rutAgente');",
+            "    pm.expect(b[0]).to.have.property('nombreAgente');",
+            "    pm.expect(b[0]).to.have.property('apellidosAgente');",
+            "    pm.expect(b[0]).to.have.property('correoAgente');",
+            "  }",
+            "});",
+            "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+            "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "type": "text/javascript"
+        }
+      }],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/agente",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "agente"]
+        }
+      }
+    },
+    {
+      "name": "2. Crear agente (POST)",
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Status 200 OK', () => {",
+            "  pm.response.to.have.status(200);",
+            "});",
+            "pm.test('Respuesta tiene los datos del agente', () => {",
+            "  const b = pm.response.json();",
+            "  pm.expect(b).to.have.property('idAgente');",
+            "  pm.expect(b).to.have.property('rutAgente');",
+            "  pm.expect(b.nombreAgente).to.eql('Carlos');",
+            "  pm.expect(b.correoAgente).to.eql('carlos.agente@inmobiliaria.com');",
+            "});",
+            "pm.test('No expone datos sensibles', () => {",
+            "  const b = pm.response.json();",
+            "  pm.expect(b).to.not.have.property('password');",
+            "});",
+            "const b = pm.response.json();",
+            "if (b && b.idAgente) { pm.environment.set('agente_id', b.idAgente); }",
+            "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+            "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "type": "text/javascript"
+        }
+      }],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombreAgente\": \"Carlos\",\n  \"apellidosAgente\": \"Ramírez Soto\",\n  \"correoAgente\": \"carlos.agente@inmobiliaria.com\",\n  \"rutAgente\": \"98765432-1\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/agente",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "agente"]
+        }
+      }
+    },
+    {
+      "name": "3. Actualizar agente (PUT)",
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Status 200 OK', () => {",
+            "  pm.response.to.have.status(200);",
+            "});",
+            "pm.test('Datos actualizados correctamente', () => {",
+            "  const b = pm.response.json();",
+            "  pm.expect(b.nombreAgente).to.eql('Carlos Eduardo');",
+            "  pm.expect(b.correoAgente).to.eql('carlos.actualizado@inmobiliaria.com');",
+            "});",
+            "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+            "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+            "});"
+          ],
+          "type": "text/javascript"
+        }
+      }],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombreAgente\": \"Carlos Eduardo\",\n  \"apellidosAgente\": \"Ramírez Soto\",\n  \"correoAgente\": \"carlos.actualizado@inmobiliaria.com\",\n  \"rutAgente\": \"98765432-1\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/agente/{{agente_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "agente", "{{agente_id}}"]
+        }
+      }
+    },
+    {
+      "name": "4. Eliminar agente (DELETE)",
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Status 204 No Content', () => {",
+            "  pm.response.to.have.status(204);",
+            "});",
+            "pm.test('Body vacío al eliminar', () => {",
+            "  pm.expect(pm.response.text()).to.be.empty;",
+            "});"
+          ],
+          "type": "text/javascript"
+        }
+      }],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/agente/{{agente_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "agente", "{{agente_id}}"]
+        }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. POST sin campos obligatorios → 400",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 400 Bad Request', () => {",
+                "  pm.response.to.have.status(400);",
+                "});",
+                "pm.test('Contiene mensaje de validación', () => {",
+                "  const b = pm.response.json();",
+                "  pm.expect(b).to.be.an('object');",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agente",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agente"]
+            }
+          }
+        },
+        {
+          "name": "N2. POST correo inválido → 400",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 400 Bad Request', () => {",
+                "  pm.response.to.have.status(400);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreAgente\": \"Test\",\n  \"apellidosAgente\": \"Test\",\n  \"correoAgente\": \"no-es-correo\",\n  \"rutAgente\": \"11111111-1\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agente",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agente"]
+            }
+          }
+        },
+        {
+          "name": "N3. POST RUT excede 12 caracteres → 400",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 400 Bad Request', () => {",
+                "  pm.response.to.have.status(400);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreAgente\": \"Test\",\n  \"apellidosAgente\": \"Test\",\n  \"correoAgente\": \"test@test.com\",\n  \"rutAgente\": \"1234567890123\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agente",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agente"]
+            }
+          }
+        },
+        {
+          "name": "N4. PUT id inexistente → 404",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 404 Not Found', () => {",
+                "  pm.response.to.have.status(404);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreAgente\": \"Test\",\n  \"apellidosAgente\": \"Test\",\n  \"correoAgente\": \"test@test.com\",\n  \"rutAgente\": \"11111111-1\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agente/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agente", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N5. DELETE id inexistente → 404",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 404 Not Found', () => {",
+                "  pm.response.to.have.status(404);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agente/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agente", "99999"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

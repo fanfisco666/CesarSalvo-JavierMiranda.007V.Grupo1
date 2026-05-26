@@ -1,0 +1,117 @@
+{
+  "info": {
+    "name": "inmobiliaria_propiedad",
+    "_postman_id": "ms-propiedad-001",
+    "description": "Colección CRUD para el microservicio de Propiedades - Spring Boot puerto 8082",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8082", "type": "string" },
+    { "key": "propiedad_id", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todas las propiedades",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});",
+              "pm.test('Cada propiedad tiene los campos requeridos', () => {",
+              "  const b = pm.response.json();",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0]).to.have.property('idPropiedad');",
+              "    pm.expect(b[0]).to.have.property('titulo');",
+              "    pm.expect(b[0]).to.have.property('tipo');",
+              "    pm.expect(b[0]).to.have.property('precio');",
+              "    pm.expect(b[0]).to.have.property('estado');",
+              "  }",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/Propiedad",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "Propiedad"]
+        }
+      }
+    },
+    {
+      "name": "2. Crear propiedad (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta tiene los datos de la propiedad creados', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('idPropiedad');",
+              "  pm.expect(b.titulo).to.eql('Departamento Vista al Mar');",
+              "  pm.expect(b.precio).to.eql(120000.0);",
+              "  pm.expect(b.estado).to.eql(true);",
+              "});",
+              "// Guardar id para usar en PUT y DELETE",
+              "const b = pm.response.json();",
+              "if (b && b.idPropiedad) { pm.environment.set('propiedad_id', b.idPropiedad.toString()); }",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Departamento Vista al Mar\",\n  \"direccion\": \"Av. Borgoño 15430, Reñaca\",\n  \"tipo\": \"Departamento\",\n  \"precio\": 120000.0,\n  \"estado\": true,\n  \"superficie\": 85.5,\n  \"habitacion\": 3,\n  \"banno\": 2,\n  \"descripcion\": \"Hermoso departamento con vista panorámica, terraza y estacionamiento incluido.\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/Propiedad",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "Propiedad"]
+        }
+      }
+    },
+    {
+      "name": "3. Actualizar propiedad (PUT)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Datos modificados correctamente', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b.titulo).to.eql('Departamento Vista al Mar - ACTUALIZADO');",
+              "  pm.expect(b.precio).to.eql(125000.0);",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime

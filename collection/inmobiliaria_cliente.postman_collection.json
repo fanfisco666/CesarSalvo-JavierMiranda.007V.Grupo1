@@ -1,0 +1,423 @@
+{
+  "info": {
+    "name": "inmobiliaria_cliente",
+    "_postman_id": "ms-cliente-001",
+    "description": "Colección CRUD para el microservicio de Clientes - Spring Boot puerto 8081",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8081", "type": "string" },
+    { "key": "cliente_id", "value": "1", "type": "string" },
+    { "key": "cliente_rut", "value": "12345678-9", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todos los clientes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});",
+              "pm.test('Cada cliente tiene los campos requeridos', () => {",
+              "  const b = pm.response.json();",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0]).to.have.property('rutCliente');",
+              "    pm.expect(b[0]).to.have.property('nombreCliente');",
+              "    pm.expect(b[0]).to.have.property('apellidosCliente');",
+              "    pm.expect(b[0]).to.have.property('correoCliente');",
+              "  }",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientes",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "clientes"]
+        }
+      }
+    },
+    {
+      "name": "2. Obtener cliente por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Cliente tiene id correcto', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('rutCliente');",
+              "  pm.expect(b).to.have.property('nombreCliente');",
+              "  pm.expect(b).to.have.property('apellidosCliente');",
+              "  pm.expect(b).to.have.property('correoCliente');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientes/{{cliente_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "clientes", "{{cliente_id}}"]
+        }
+      }
+    },
+    {
+      "name": "3. Obtener cliente por RUT",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Cliente tiene RUT correcto', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('rutCliente');",
+              "  pm.expect(b.rutCliente).to.eql(pm.variables.get('cliente_rut'));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientes/rut/{{cliente_rut}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "clientes", "rut", "{{cliente_rut}}"]
+        }
+      }
+    },
+    {
+      "name": "4. Crear cliente (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta tiene los datos del cliente', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('rutCliente');",
+              "  pm.expect(b.rutCliente).to.eql('12345678-9');",
+              "  pm.expect(b.nombreCliente).to.eql('Juan');",
+              "  pm.expect(b.correoCliente).to.eql('juan.perez@email.com');",
+              "});",
+              "pm.test('No expone datos sensibles', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.not.have.property('password');",
+              "});",
+              "// Guardar id para usar en PUT y DELETE",
+              "const b = pm.response.json();",
+              "if (b && b.id) { pm.environment.set('cliente_id', b.id); }",
+              "if (b && b.rutCliente) { pm.environment.set('cliente_rut', b.rutCliente); }",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rutCliente\": \"12345678-9\",\n  \"nombreCliente\": \"Juan\",\n  \"apellidosCliente\": \"Pérez González\",\n  \"correoCliente\": \"juan.perez@email.com\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientes",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "clientes"]
+        }
+      }
+    },
+    {
+      "name": "5. Actualizar cliente (PUT)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Datos actualizados correctamente', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b.nombreCliente).to.eql('Juan Carlos');",
+              "  pm.expect(b.correoCliente).to.eql('juan.actualizado@email.com');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rutCliente\": \"12345678-9\",\n  \"nombreCliente\": \"Juan Carlos\",\n  \"apellidosCliente\": \"Pérez González\",\n  \"correoCliente\": \"juan.actualizado@email.com\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientes/{{cliente_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "clientes", "{{cliente_id}}"]
+        }
+      }
+    },
+    {
+      "name": "6. Eliminar cliente (DELETE)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 204 No Content', () => {",
+              "  pm.response.to.have.status(204);",
+              "});",
+              "pm.test('Body vacío al eliminar', () => {",
+              "  pm.expect(pm.response.text()).to.be.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientes/{{cliente_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "clientes", "{{cliente_id}}"]
+        }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. GET id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test('Mensaje de error presente', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.have.property('message').or.have.property('error');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/clientes/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "clientes", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N2. POST sin campos obligatorios → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Contiene mensaje de validación', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.be.an('object');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/clientes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "N3. POST correo inválido → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error menciona el correo', () => {",
+                  "  const b = pm.response.text();",
+                  "  pm.expect(b.toLowerCase()).to.include('correo');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rutCliente\": \"11111111-1\",\n  \"nombreCliente\": \"Test\",\n  \"apellidosCliente\": \"Test\",\n  \"correoCliente\": \"esto-no-es-un-correo\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/clientes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "N4. PUT id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rutCliente\": \"12345678-9\",\n  \"nombreCliente\": \"Juan\",\n  \"apellidosCliente\": \"Pérez\",\n  \"correoCliente\": \"juan@email.com\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/clientes/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "clientes", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N5. DELETE id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/clientes/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "clientes", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N6. GET RUT inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/clientes/rut/00000000-0",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "clientes", "rut", "00000000-0"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

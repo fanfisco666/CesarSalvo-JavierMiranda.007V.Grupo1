@@ -1,0 +1,289 @@
+{
+  "info": {
+    "name": "inmobiliaria_reporte",
+    "_postman_id": "ms-reporte-001",
+    "description": "Colección CRUD para el microservicio de Reportes - Spring Boot puerto 8089",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8089", "type": "string" },
+    { "key": "reporte_id", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todos los reportes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});",
+              "pm.test('Cada reporte tiene los campos requeridos', () => {",
+              "  const b = pm.response.json();",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0]).to.have.property('idReporte');",
+              "    pm.expect(b[0]).to.have.property('titulo');",
+              "    pm.expect(b[0]).to.have.property('descripcion');",
+              "    pm.expect(b[0]).to.have.property('tipoReporte');",
+              "  }",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/reporte",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "reporte"]
+        }
+      }
+    },
+    {
+      "name": "2. Obtener reporte por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('El reporte tiene la estructura correcta', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('idReporte');",
+              "  pm.expect(b).to.have.property('titulo');",
+              "  pm.expect(b).to.have.property('descripcion');",
+              "  pm.expect(b).to.have.property('tipoReporte');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/reporte/{{reporte_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "reporte", "{{reporte_id}}"]
+        }
+      }
+    },
+    {
+      "name": "3. Crear reporte (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta tiene los datos del reporte creados', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('idReporte');",
+              "  pm.expect(b.titulo).to.eql('Filtración de agua en baño principal');",
+              "  pm.expect(b.tipoReporte).to.eql('mantenimiento');",
+              "});",
+              "// Guardar id para usar en PUT y DELETE",
+              "const b = pm.response.json();",
+              "if (b && b.idReporte) { pm.environment.set('reporte_id', b.idReporte.toString()); }",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Filtración de agua en baño principal\",\n  \"descripcion\": \"Se presenta una filtración activa en la tubería del lavamanos, generando humedad en la losa.\",\n  \"idPropiedad\": 1,\n  \"idUsuario\": 10,\n  \"idAgente\": 5,\n  \"tipoReporte\": \"mantenimiento\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/reporte",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "reporte"]
+        }
+      }
+    },
+    {
+      "name": "4. Actualizar reporte (PUT)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Datos modificados correctamente', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b.titulo).to.eql('Filtración de agua en baño principal - URGENTE');",
+              "  pm.expect(b.descripcion).to.include('ACTUALIZADO');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Filtración de agua en baño principal - URGENTE\",\n  \"descripcion\": \"Se presenta una filtración activa en la tubería del lavamanos. ACTUALIZADO: Se requiere visita técnica prioritaria dentro de las próximas 24 horas.\",\n  \"idPropiedad\": 1,\n  \"idUsuario\": 10,\n  \"idAgente\": 5,\n  \"tipoReporte\": \"mantenimiento\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/reporte/{{reporte_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "reporte", "{{reporte_id}}"]
+        }
+      }
+    },
+    {
+      "name": "5. Eliminar reporte (DELETE)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 204 No Content', () => {",
+              "  pm.response.to.have.status(204);",
+              "});",
+              "pm.test('Body vacío al eliminar', () => {",
+              "  pm.expect(pm.response.text()).to.be.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/reporte/{{reporte_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "reporte", "{{reporte_id}}"]
+        }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. GET id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test('Mensaje de error presente', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.have.property('message').or.have.property('error');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/reporte/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reporte", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N2. POST sin campos obligatorios → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Contiene detalles de validación', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.be.an('object');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reporte",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reporte"]
+            }
+          }
+        },
+        {
+          "name": "N3. POST descripción excede tamaño máximo → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Reporte Corto\",\n  \"descripcion\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam

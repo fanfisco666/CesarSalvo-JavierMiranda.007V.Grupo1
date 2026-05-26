@@ -1,0 +1,241 @@
+{
+  "info": {
+    "name": "inmobiliaria_auth",
+    "_postman_id": "ms-auth-001",
+    "description": "Colección para el microservicio de Autenticación y Registro - Spring Boot puerto 8088",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8088", "type": "string" },
+    { "key": "auth_token", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Registrar usuario (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta tiene la estructura DTO correcta', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('token');",
+              "  pm.expect(b).to.have.property('username');",
+              "  pm.expect(b).to.have.property('rol');",
+              "});",
+              "pm.test('Mapeo de datos correcto', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b.username).to.eql('agente_test');",
+              "  pm.expect(b.rol).to.eql('AGENTE');",
+              "});",
+              "// Guardar token en el ambiente si es generado",
+              "const b = pm.response.json();",
+              "if (b && b.token) { pm.environment.set('auth_token', b.token); }",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"agente_test\",\n  \"password\": \"ClaveSegura123\",\n  \"rol\": \"AGENTE\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/register",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "2. Autenticar usuario / Login (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Login exitoso y devuelve Token JWT', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b.token).to.be.a('string');",
+              "  pm.expect(b.token.length).to.be.above(10);",
+              "});",
+              "// Actualizar variable de entorno con el token activo",
+              "const b = pm.response.json();",
+              "if (b && b.token) { pm.environment.set('auth_token', b.token); }",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"agente_test\",\n  \"password\": \"ClaveSegura123\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/login",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. Login con datos vacíos → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Validación atrapa campos en blanco', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.be.an('object');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "N2. Register username muy corto (<4) → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"adm\",\n  \"password\": \"ClaveSegura123\",\n  \"rol\": \"ADMIN\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "N3. Register password muy corta (<6) → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin_root\",\n  \"password\": \"12345\",\n  \"rol\": \"ADMIN\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "N4. Register rol no permitido / inválido → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error menciona patrón de Rol', () => {",
+                  "  const b = pm.response.text();",
+                  "  pm.expect(b.toLowerCase()).to.include('rol');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"usuario_error\",\n  \"password\": \"ClaveSegura123\",\n  \"rol\": \"SUPER_USER\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "register"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

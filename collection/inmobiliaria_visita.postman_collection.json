@@ -1,0 +1,501 @@
+{
+  "info": {
+    "name": "inmobiliaria_visita",
+    "_postman_id": "ms-visita-001",
+    "description": "Colección CRUD y filtros específicos para el microservicio de Visitas - Spring Boot puerto 8084",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8084", "type": "string" },
+    { "key": "visita_id", "value": "1", "type": "string" },
+    { "key": "cliente_id", "value": "1", "type": "string" },
+    { "key": "propiedad_id", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todas las visitas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});",
+              "pm.test('Cada visita tiene los campos requeridos estructurales', () => {",
+              "  const b = pm.response.json();",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0]).to.have.property('idCliente');",
+              "    pm.expect(b[0]).to.have.property('idPropiedad');",
+              "    pm.expect(b[0]).to.have.property('idAgente');",
+              "    pm.expect(b[0]).to.have.property('fechaVisita');",
+              "  }",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas"]
+        }
+      }
+    },
+    {
+      "name": "2. Obtener visita por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('La visita tiene la estructura esperada', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('idCliente');",
+              "  pm.expect(b).to.have.property('idPropiedad');",
+              "  pm.expect(b).to.have.property('idAgente');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas/{{visita_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas", "{{visita_id}}"]
+        }
+      }
+    },
+    {
+      "name": "3. Obtener visitas por Cliente ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas/cliente/{{cliente_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas", "cliente", "{{cliente_id}}"]
+        }
+      }
+    },
+    {
+      "name": "4. Obtener visitas por Propiedad ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas/propiedad/{{propiedad_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas", "propiedad", "{{propiedad_id}}"]
+        }
+      }
+    },
+    {
+      "name": "5. Obtener visitas por Estado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas/estado/PENDIENTE",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas", "estado", "PENDIENTE"]
+        }
+      }
+    },
+    {
+      "name": "6. Crear visita (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta tiene los datos de la visita creados', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b.idCliente).to.eql(1);",
+              "  pm.expect(b.idPropiedad).to.eql(1);",
+              "  pm.expect(b.idAgente).to.eql(5);",
+              "});",
+              "// Guardar ids dinámicamente en el entorno",
+              "const b = pm.response.json();",
+              "if (b && b.id) { pm.environment.set('visita_id', b.id.toString()); }",
+              "else if (b && b.idVisita) { pm.environment.set('visita_id', b.idVisita.toString()); }",
+              "if (b && b.idCliente) { pm.environment.set('cliente_id', b.idCliente.toString()); }",
+              "if (b && b.idPropiedad) { pm.environment.set('propiedad_id', b.idPropiedad.toString()); }",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"idCliente\": 1,\n  \"idPropiedad\": 1,\n  \"idAgente\": 5,\n  \"fechaVisita\": \"2026-08-15\",\n  \"horaVisita\": \"15:30:00\",\n  \"observaciones\": \"El cliente está muy interesado en evaluar los balcones y estacionamiento.\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas"]
+        }
+      }
+    },
+    {
+      "name": "7. Actualizar visita completa (PUT)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Datos modificados correctamente', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b.observaciones).to.include('ACTUALIZADO');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"idCliente\": 1,\n  \"idPropiedad\": 1,\n  \"idAgente\": 5,\n  \"fechaVisita\": \"2026-08-16\",\n  \"horaVisita\": \"16:00:00\",\n  \"observaciones\": \"ACTUALIZADO: Visita postergada un día a petición del cliente.\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas/{{visita_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas", "{{visita_id}}"]
+        }
+      }
+    },
+    {
+      "name": "8. Cambiar estado visita (PATCH)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas/{{visita_id}}/estado?estado=COMPLETADA",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas", "{{visita_id}}", "estado"],
+          "query": [
+            {
+              "key": "estado",
+              "value": "COMPLETADA"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "9. Eliminar visita (DELETE)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 204 No Content', () => {",
+              "  pm.response.to.have.status(204);",
+              "});",
+              "pm.test('Body vacío al eliminar', () => {",
+              "  pm.expect(pm.response.text()).to.be.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/visitas/{{visita_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "visitas", "{{visita_id}}"]
+        }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. GET id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/visitas/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "visitas", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N2. POST sin campos obligatorios → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/visitas",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "visitas"]
+            }
+          }
+        },
+        {
+          "name": "N3. POST fecha pasada (Validation @Future) → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": 1,\n  \"idPropiedad\": 1,\n  \"idAgente\": 2,\n  \"fechaVisita\": \"2020-01-01\",\n  \"horaVisita\": \"12:00:00\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/visitas",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "visitas"]
+            }
+          }
+        },
+        {
+          "name": "N4. PUT id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": 1,\n  \"idPropiedad\": 1,\n  \"idAgente\": 5,\n  \"fechaVisita\": \"2026-10-10\",\n  \"horaVisita\": \"10:00:00\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/visitas/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "visitas", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N5. PATCH estado id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/visitas/99999/estado?estado=CANCELADA",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "visitas", "99999", "estado"],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "CANCELADA"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "N6. DELETE id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/visitas/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "visitas", "99999"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

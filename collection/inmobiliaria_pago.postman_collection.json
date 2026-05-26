@@ -1,0 +1,452 @@
+{
+  "info": {
+    "name": "inmobiliaria_pago",
+    "_postman_id": "ms-pago-002",
+    "description": "Colección CRUD para el microservicio de Pagos - Spring Boot puerto 8086",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8086", "type": "string" },
+    { "key": "pago_id", "value": "1", "type": "string" },
+    { "key": "contrato_id", "value": "100", "type": "string" },
+    { "key": "cliente_id", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todos los pagos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta es un array', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "});",
+              "pm.test('Cada pago tiene los campos requeridos', () => {",
+              "  const b = pm.response.json();",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0]).to.have.property('idPago');",
+              "    pm.expect(b[0]).to.have.property('idContrato');",
+              "    pm.expect(b[0]).to.have.property('idCliente');",
+              "    pm.expect(b[0]).to.have.property('montoPago');",
+              "    pm.expect(b[0]).to.have.property('estado');",
+              "    pm.expect(b[0]).to.have.property('enMora');",
+              "  }",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos"]
+        }
+      }
+    },
+    {
+      "name": "2. Obtener pago por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Pago tiene id correcto', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('idPago');",
+              "  pm.expect(b).to.have.property('idContrato');",
+              "  pm.expect(b).to.have.property('idCliente');",
+              "  pm.expect(b).to.have.property('montoPago');",
+              "  pm.expect(b).to.have.property('estado');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos/{{pago_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos", "{{pago_id}}"]
+        }
+      }
+    },
+    {
+      "name": "3. Obtener pagos por Contrato ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Pagos tienen el ID de contrato correcto', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0].idContrato.toString()).to.eql(pm.variables.get('contrato_id'));",
+              "  }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos/contrato/{{contrato_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos", "contrato", "{{contrato_id}}"]
+        }
+      }
+    },
+    {
+      "name": "4. Obtener pagos por Cliente ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Pagos tienen el ID de cliente correcto', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0].idCliente.toString()).to.eql(pm.variables.get('cliente_id'));",
+              "  }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos/cliente/{{cliente_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos", "cliente", "{{cliente_id}}"]
+        }
+      }
+    },
+    {
+      "name": "5. Obtener pagos en Mora",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Todos los elementos del listado estan en mora', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.be.an('array');",
+              "  if (b.length > 0) {",
+              "    pm.expect(b[0].enMora).to.eql(true);",
+              "  }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos/mora",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos", "mora"]
+        }
+      }
+    },
+    {
+      "name": "6. Crear pago (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Respuesta tiene los datos del pago creados', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('idPago');",
+              "  pm.expect(b.idContrato).to.eql(100);",
+              "  pm.expect(b.idCliente).to.eql(1);",
+              "  pm.expect(parseFloat(b.montoPago)).to.eql(250000.50);",
+              "  pm.expect(b.metodoPago).to.eql('TRANSFERENCIA');",
+              "});",
+              "// Guardar id para usar en confirmacion y DELETE",
+              "const b = pm.response.json();",
+              "if (b && b.idPago) { pm.environment.set('pago_id', b.idPago.toString()); }",
+              "if (b && b.idContrato) { pm.environment.set('contrato_id', b.idContrato.toString()); }",
+              "if (b && b.idCliente) { pm.environment.set('cliente_id', b.idCliente.toString()); }",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"idContrato\": 100,\n  \"idCliente\": 1,\n  \"montoPago\": 250000.50,\n  \"fechaPago\": \"2026-05-25\",\n  \"fechaVencimiento\": \"2026-06-05\",\n  \"metodoPago\": \"TRANSFERENCIA\",\n  \"numeroCuota\": 1,\n  \"observaciones\": \"Pago de arriendo mensual departamento 402\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos"]
+        }
+      }
+    },
+    {
+      "name": "7. Confirmar pago (PATCH)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200 OK', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Estado modificado correctamente', () => {",
+              "  const b = pm.response.json();",
+              "  pm.expect(b).to.have.property('estado');",
+              "});",
+              "pm.test('Tiempo de respuesta menor a 2000ms', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos/{{pago_id}}/confirmar",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos", "{{pago_id}}", "confirmar"]
+        }
+      }
+    },
+    {
+      "name": "8. Eliminar pago (DELETE)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 204 No Content', () => {",
+              "  pm.response.to.have.status(204);",
+              "});",
+              "pm.test('Body vacío al eliminar', () => {",
+              "  pm.expect(pm.response.text()).to.be.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pagos/{{pago_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pagos", "{{pago_id}}"]
+        }
+      }
+    },
+    {
+      "name": "--- CASOS NEGATIVOS ---",
+      "item": [
+        {
+          "name": "N1. GET id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test('Mensaje de error presente', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.have.property('message').or.have.property('error');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pagos", "99999"]
+            }
+          }
+        },
+        {
+          "name": "N2. POST sin campos obligatorios → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Contiene mensaje de validación', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.be.an('object');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pagos"]
+            }
+          }
+        },
+        {
+          "name": "N3. POST método de pago inválido → 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 400 Bad Request', () => {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error menciona el metodo de pago', () => {",
+                  "  const b = pm.response.text();",
+                  "  pm.expect(b.toLowerCase()).to.include('método').or.include('metodo');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idContrato\": 100,\n  \"idCliente\": 1,\n  \"montoPago\": 150000,\n  \"fechaPago\": \"2026-05-25\",\n  \"fechaVencimiento\": \"2026-06-05\",\n  \"metodoPago\": \"BITCOIN\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pagos"]
+            }
+          }
+        },
+        {
+          "name": "N4. PATCH confirmar id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos/99999/confirmar",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pagos", "99999", "confirmar"]
+            }
+          }
+        },
+        {
+          "name": "N5. DELETE id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404 Not Found', () => {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pagos", "99999"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
