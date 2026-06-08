@@ -1,4 +1,4 @@
-CREATE TABLE REPORTE (
+CREATE TABLE reporte (
     idReporte BIGINT NOT NULL AUTO_INCREMENT,
     titulo VARCHAR(255) NOT NULL,
     descripcion TEXT,

@@ -7,41 +7,41 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "CONTRATO")
+@Table(name = "contrato")
 public class ContratoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDCONTRATO")
+    @Column(name = "idContrato")
     private Long idContrato;
 
-    @Column(name = "IDCLIENTE", nullable = false)
+    @Column(name = "idCliente", nullable = false)
     private Long idCliente;
 
-    @Column(name = "IDPROPIEDAD", nullable = false)
+    @Column(name = "idPropiedad", nullable = false)
     private Long idPropiedad;
 
-    @Column(name = "IDAGENTE", nullable = false)
+    @Column(name = "idAgente", nullable = false)
     private Long idAgente;
 
-    @Column(name = "IDVISITA", nullable = false)
+    @Column(name = "idVisita", nullable = false)
     private Long idVisita;
 
-    @Column(name = "TIPOCONTRATO", nullable = false, length = 50)
+    @Column(name = "tipoContrato", nullable = false, length = 50)
     private String tipoContrato;
 
-    @Column(name = "MONTOTOTAL", nullable = false)
+    @Column(name = "montoTotal", nullable = false)
     private BigDecimal montoTotal;
 
-    @Column(name = "FECHAINICIO", nullable = false)
+    @Column(name = "fechaInicio", nullable = false)
     private LocalDate fechaInicio;
 
-    @Column(name = "FECHAFIN")
+    @Column(name = "fechaFin")
     private LocalDate fechaFin;
 
-    @Column(name = "ESTADO", nullable = false, length = 50)
+    @Column(name = "estado", nullable = false, length = 50)
     private String estado;
 
-    @Column(name = "OBSERVACIONES", length = 500)
+    @Column(name = "observaciones", length = 500)
     private String observaciones;
 }

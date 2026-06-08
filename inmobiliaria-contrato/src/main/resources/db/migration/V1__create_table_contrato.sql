@@ -1,4 +1,4 @@
-CREATE TABLE CONTRATO (
+CREATE TABLE contrato (
 idContrato      BIGINT NOT NULL AUTO_INCREMENT,
 idCliente       BIGINT NOT NULL,
 idPropiedad     BIGINT NOT NULL,

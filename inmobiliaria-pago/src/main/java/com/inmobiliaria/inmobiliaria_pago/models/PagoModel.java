@@ -9,38 +9,38 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "PAGO")
+@Table(name = "pago")
 public class PagoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDPAGO")
+    @Column(name = "idPago")
     private Long idPago;
 
-    @Column(name = "IDCONTRATO", nullable = false)
+    @Column(name = "idContrato", nullable = false)
     private Long idContrato;
 
-    @Column(name = "IDCLIENTE", nullable = false)
+    @Column(name = "idCliente", nullable = false)
     private Long idCliente;
 
-    @Column(name = "MONTOPAGO", nullable = false)
+    @Column(name = "montoPago", nullable = false)
     private BigDecimal montoPago;
 
-    @Column(name = "FECHAPAGO", nullable = false)
+    @Column(name = "fechaPago", nullable = false)
     private LocalDate fechaPago;
 
-    @Column(name = "FECHAVENCIMIENTO", nullable = false)
+    @Column(name = "fechaVencimiento", nullable = false)
     private LocalDate fechaVencimiento;
 
-    @Column(name = "METODOPAGO", nullable = false, length = 50)
+    @Column(name = "metodoPago", nullable = false, length = 50)
     private String metodoPago;
 
-    @Column(name = "ESTADO", nullable = false, length = 50)
+    @Column(name = "estado", nullable = false, length = 50)
     private String estado;
 
-    @Column(name = "NUMEROCUOTA")
+    @Column(name = "numeroCuota")
     private Integer numeroCuota;
 
-    @Column(name = "OBSERVACIONES", length = 500)
+    @Column(name = "observaciones", length = 500)
     private String observaciones;
 }

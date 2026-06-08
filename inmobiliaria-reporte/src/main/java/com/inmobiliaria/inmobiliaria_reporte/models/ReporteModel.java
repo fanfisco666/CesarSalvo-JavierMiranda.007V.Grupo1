@@ -10,30 +10,30 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "REPORTE")
+@Table(name = "reporte")
 public class ReporteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDREPORTE")
+    @Column(name = "idReporte")
     private Long idReporte;
 
-    @Column(name = "TITULO", nullable = false)
+    @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(name = "DESCRIPCION", columnDefinition = "TEXT")
+    @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
 
-    @Column(name = "TIPOREPORTE", nullable = false)
+    @Column(name = "tipoReporte", nullable = false)
     private String tipoReporte; // Puede ser mantenimiento, queja.
 
-    @Column(name = "IDPROPIEDAD", nullable = false)
+    @Column(name = "idPropiedad", nullable = false)
     private Long idPropiedad; // ID de la propiedad relacionada con el reporte
 
-    @Column(name = "IDUSUARIO", nullable = false)
+    @Column(name = "idUsuario", nullable = false)
     private Long idUsuario; // ID del cliente que hizo el reporte
 
-    @Column(name = "IDAGENTE", nullable = false)
+    @Column(name = "idAgente", nullable = false)
     private Long idAgente; // ID del agente inmobiliario asignado al reporte
 
 }

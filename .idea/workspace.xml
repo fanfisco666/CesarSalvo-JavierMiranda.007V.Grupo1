@@ -5,17 +5,101 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="314d8731-d164-46bd-b144-1bd71f057b75" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-agente/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-auth/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-contrato/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-pago/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-reporte/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-visita/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria_cliente/dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/db/migration/V1__create_table_mantencion.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/db/migration/V2__insert_seed_mantencion.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/controllers/AgenteControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/controllers/AgenteControllers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/models/AgenteModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/models/AgenteModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/services/AgenteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/services/AgenteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/db/migration/V1__create_table_agente.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/db/migration/V1__create_table_agente.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/db/migration/V2__insert_seed_agente.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/db/migration/V2__insert_seed_agente.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/InmobiliariaAuthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/InmobiliariaAuthApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/models/UsuarioModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/models/UsuarioModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/security/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/security/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/db/migration/V1__create_table_usuario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/db/migration/V1__create_table_usuario.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/db/migration/V2__insert_seed_usuario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/db/migration/V2__insert_seed_usuario.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/AgenteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/AgenteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/ClienteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/ClienteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/NotificacionClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/NotificacionClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/PropiedadClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/PropiedadClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/VisitaClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/client/VisitaClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/controllers/ContratoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/controllers/ContratoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/dtos/response/PropiedadResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/dtos/response/PropiedadResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/models/ContratoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/models/ContratoModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/db/migration/V1__create_table_contrato.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/db/migration/V1__create_table_contrato.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/db/migration/V2__insert_seed_contrato.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/db/migration/V2__insert_seed_contrato.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/client/AgenteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/client/AgenteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/client/PropiedadClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/client/PropiedadClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/dtos/response/AgenteResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/dtos/response/AgenteResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/dtos/response/PropiedadResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/dtos/response/PropiedadResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/model/MantencionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/model/MantencionModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/db/V1__create_table_mantencion.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/db/V2__insert_seed_mantencion.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/java/com/inmobiliaria/inmobiliaria_notificacion/controllers/NotificacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/java/com/inmobiliaria/inmobiliaria_notificacion/controllers/NotificacionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/java/com/inmobiliaria/inmobiliaria_notificacion/models/NotificacionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/java/com/inmobiliaria/inmobiliaria_notificacion/models/NotificacionModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/db/migration/V1__create_table_notificacion.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/db/migration/V1__create_table_notificacion.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/db/migration/V2__insert_seed_notificacion.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/db/migration/V2__insert_seed_notificacion.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/client/ClienteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/client/ClienteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/client/ContratoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/client/ContratoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/client/NotificacionClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/client/NotificacionClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/controllers/PagoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/controllers/PagoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/models/PagoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/models/PagoModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/db/migration/V1__create_table_pago.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/db/migration/V1__create_table_pago.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/db/migration/V2__insert_seed_pago.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/db/migration/V2__insert_seed_pago.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/InmobiliariaPropiedadApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/InmobiliariaPropiedadApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/controllers/PropiedadControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/controllers/PropiedadControllers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/dtos/request/PropiedadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/dtos/request/PropiedadRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/models/PropiedadModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/models/PropiedadModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/services/PropiedadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/services/PropiedadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V1__create_table_propiedad.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V1__create_table_propiedad.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V2__insert_seed_propiedad.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V2__insert_seed_propiedad.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/client/AgenteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/client/AgenteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/client/ClienteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/client/ClienteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/client/PropiedadClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/client/PropiedadClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/controllers/ReporteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/controllers/ReporteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/dtos/response/AgenteResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/dtos/response/AgenteResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/dtos/response/ClienteResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/dtos/response/ClienteResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/dtos/response/PropiedadResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/dtos/response/PropiedadResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/models/ReporteModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/models/ReporteModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/db/migration/V1__create_table_reporte.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/db/migration/V1__create_table_reporte.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/db/migration/V2__insert_seed_reporte.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/db/migration/V2__insert_seed_reporte.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/AgenteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/AgenteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/ClienteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/ClienteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/NotificacionClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/NotificacionClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/PropiedadClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/client/PropiedadClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/controllers/VisitaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/controllers/VisitaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/dtos/response/PropiedadResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/dtos/response/PropiedadResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/models/VisitaModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/models/VisitaModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/db/migration/V1__create_table_visita.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/db/migration/V1__create_table_visita.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/db/migration/V2__insert_seed_visita.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/db/migration/V2__insert_seed_visita.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/InmobiliariaClienteApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/InmobiliariaClienteApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/controllers/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/controllers/ClienteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/models/ClienteModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/models/ClienteModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/db/migration/V1__create_table_cliente.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/db/migration/V1__create_table_cliente.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/db/migration/V2__insert_seed_cliente.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/db/migration/V2__insert_seed_cliente.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,20 +129,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dannii preciosa/Desktop/CesarSalvo-JavierMiranda.007V-main",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Cesar/Desktop/CesarSalvo-JavierMiranda.007V-main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

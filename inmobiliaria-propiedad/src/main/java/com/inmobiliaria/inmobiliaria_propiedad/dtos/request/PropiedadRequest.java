@@ -1,42 +1,38 @@
 package com.inmobiliaria.inmobiliaria_propiedad.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class PropiedadRequest {
+
     @NotBlank(message = "El título es obligatorio")
-    @Size(max = 100, message = "El título no puede exceder los 100 caracteres")
+    @Size(max = 255, message = "El título no puede exceder los 255 caracteres")
     private String titulo;
 
-    @Size(max = 100, message = "La dirección no puede exceder los 100 caracteres")
+    @Size(max = 255, message = "La dirección no puede exceder los 255 caracteres")
     private String direccion;
 
     @NotBlank(message = "El tipo es obligatorio")
-    @Size(max = 30, message = "El tipo no puede exceder los 30 caracteres")
+    @Size(max = 255, message = "El tipo no puede exceder los 255 caracteres")
     private String tipo;
 
-    @NotBlank(message = "El precio es obligatorio")
-    @Size(max = 100, message = "El precio no puede exceder los 100 caracteres")
+    @NotNull(message = "El precio es obligatorio")
     private Double precio;
 
-    @NotBlank(message = "El estado es obligatorio")
-    private boolean estado;
+    private boolean estado = true;
 
-    @NotBlank(message = "La superficie es obligatoria")
-    @Size(max = 100, message = "La superficie no puede exceder los 100 caracteres")
+    @NotNull(message = "La superficie es obligatoria")
     private Double superficie;
 
-    @NotBlank(message = "La cantidad de habitaciones es obligatoria")
-    @Size(max = 100, message = "La cantidad de habitaciones no puede exceder los 100 caracteres")
+    @NotNull(message = "La cantidad de habitaciones es obligatoria")
     private Integer habitacion;
 
-    @NotBlank(message = "La cantidad de baños es obligatoria")
-    @Size(max = 100, message = "La cantidad de baños no puede exceder los 100 caracteres")
+    @NotNull(message = "La cantidad de baños es obligatoria")
     private Integer banno;
 
-    @Size(max = 300, message = "La descripción no puede exceder los 300 caracteres")
+    @Size(max = 500, message = "La descripción no puede exceder los 500 caracteres")
     private String descripcion;
-
 }

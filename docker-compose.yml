@@ -1,3 +1,4 @@
+version: '3.8'
 services:
 
   # ── BASES DE DATOS ──────────────────────────────────────
@@ -14,10 +15,10 @@ services:
     volumes:
       - mysql_clientes_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
-      retries: 15     # <--- Subido de 5 a 15 para dar más tiempo de inicialización en paralelo
+      retries: 15    # <--- Subido de 5 a 15 para dar más tiempo de inicialización en paralelo
 
   mysql-auth:
     image: mysql:8.0
@@ -31,7 +32,7 @@ services:
     volumes:
       - mysql_auth_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -48,7 +49,7 @@ services:
     volumes:
       - mysql_propiedades_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -65,7 +66,7 @@ services:
     volumes:
       - mysql_agentes_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -82,7 +83,7 @@ services:
     volumes:
       - mysql_visitas_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -99,7 +100,7 @@ services:
     volumes:
       - mysql_contratos_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -116,7 +117,7 @@ services:
     volumes:
       - mysql_pagos_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -133,7 +134,7 @@ services:
     volumes:
       - mysql_notificaciones_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -150,7 +151,7 @@ services:
     volumes:
       - mysql_reportes_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15
@@ -167,7 +168,7 @@ services:
     volumes:
       - mysql_mantenciones_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pChochex1367*" ]
       interval: 10s
       timeout: 5s
       retries: 15

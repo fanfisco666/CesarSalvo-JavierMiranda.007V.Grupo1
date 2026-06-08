@@ -1,4 +1,4 @@
-CREATE TABLE PAGO (
+CREATE TABLE pago (
 idPago           BIGINT NOT NULL AUTO_INCREMENT,
 idContrato       BIGINT NOT NULL,
 idCliente        BIGINT NOT NULL,

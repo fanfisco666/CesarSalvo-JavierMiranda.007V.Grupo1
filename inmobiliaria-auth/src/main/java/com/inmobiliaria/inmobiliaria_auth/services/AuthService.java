@@ -47,7 +47,7 @@ public class AuthService {
         }
 
         String token = jwtService.generarToken(usuario.getUsername(), usuario.getRol());
-        log.info("Login exitoso para usuario: {} con rol: {}", usuario.getUsername(), usuario.getRol());
+        log.info("Login exitoso para usuario: {}", usuario.getUsername());
 
         return AuthResponse.builder()
                 .token(token)
@@ -65,14 +65,19 @@ public class AuthService {
             throw new AuthException("El username ya está en uso");
         }
 
+        // Si no se envía rol, se asigna "USER" por defecto
+        String rol = (request.getRol() != null && !request.getRol().isBlank())
+                ? request.getRol()
+                : "USER";
+
         UsuarioModel usuario = new UsuarioModel();
         usuario.setUsername(request.getUsername());
         usuario.setPassword(request.getPassword());
-        usuario.setRol(request.getRol());
+        usuario.setRol(rol);
         usuario.setActivo(true);
 
         usuarioRepository.save(usuario);
-        log.info("Usuario registrado exitosamente: {} con rol: {}", usuario.getUsername(), usuario.getRol());
+        log.info("Usuario registrado: {} con rol: {}", usuario.getUsername(), rol);
 
         String token = jwtService.generarToken(usuario.getUsername(), usuario.getRol());
 

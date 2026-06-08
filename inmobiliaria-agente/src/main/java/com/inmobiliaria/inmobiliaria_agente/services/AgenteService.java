@@ -85,6 +85,24 @@ public class AgenteService {
                 .build();
     }
 
+    public AgenteResponse obtenerPorId(Long id) {
+        log.info("Buscando agente con ID: {}", id);
+
+        AgenteModel agente = agenteRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Agente no encontrado. ID={}", id);
+                    return new NotFoundExceptions("Agente con ID " + id + " no encontrado");
+                });
+
+        return AgenteResponse.builder()
+                .idAgente(agente.getIdAgente())
+                .rutAgente(agente.getRutAgente())
+                .nombreAgente(agente.getNombreAgente())
+                .apellidosAgente(agente.getApellidosAgente())
+                .correoAgente(agente.getCorreoAgente())
+                .build();
+    }
+
     // para eliminar un agente
     public void eliminar(@NonNull Long id) {
         log.info("Eliminando agente con ID: {}", id);

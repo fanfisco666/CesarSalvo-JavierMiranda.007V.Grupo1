@@ -12,32 +12,32 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "MANTENCION")
+@Table(name = "mantencion")
 public class MantencionModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDMANTENCION")
+    @Column(name = "idMantencion")
     private Long idMantencion;
 
-    @Column(name = "DESCRIPCION", columnDefinition = "TEXT")
+    @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
 
-    @Column(name = "ESTADO", nullable = false, length = 50)
+    @Column(name = "estado", nullable = false, length = 50)
     private String estado; // Puede ser "pendiente", "en progreso", "completado"
 
-    @Column(name = "Fecha_inicio", nullable = false)
+    @Column(name = "fechaInicio", nullable = false)
     private LocalDate fechaInicio;
 
-    @Column(name = "Fecha_fin")
+    @Column(name = "fechaFin")
     private LocalDate fechaFin;
 
     // informacion que vienne de otros microservicios
 
-    @Column(name = "IDAGENTE", nullable = false)
+    @Column(name = "idAgente", nullable = false)
     private Long idAgente; // ID del agente inmobiliario asignado a la mantención
 
-    @Column(name = "IDPROPIEDAD", nullable = false)
+    @Column(name = "idPropiedad", nullable = false)
     private Long idPropiedad; // ID de la propiedad relacionada con la mantención
 
 }

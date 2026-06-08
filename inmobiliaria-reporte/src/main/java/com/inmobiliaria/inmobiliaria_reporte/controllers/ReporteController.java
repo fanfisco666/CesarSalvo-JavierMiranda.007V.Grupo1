@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/reporte")
+@RequestMapping("/api/v1/reporte")
 
 public class ReporteController {
 

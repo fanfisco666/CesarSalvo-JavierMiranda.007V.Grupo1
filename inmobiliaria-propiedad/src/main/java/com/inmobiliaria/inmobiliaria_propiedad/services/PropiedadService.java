@@ -113,6 +113,30 @@ public class PropiedadService {
 
     }
 
+    public PropiedadResponse obtenerPorId(Long id) {
+        log.info("Buscando propiedad con ID: {}", id);
+
+        PropiedadModel propiedad = propiedadRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Propiedad no encontrada. ID={}", id);
+                    return new NotFoundExceptions(
+                            "Propiedad con ID " + id + " no encontrada");
+                });
+
+        return PropiedadResponse.builder()
+                .idPropiedad(propiedad.getIdPropiedad())
+                .titulo(propiedad.getTitulo())
+                .direccion(propiedad.getDireccion())
+                .tipo(propiedad.getTipo())
+                .precio(propiedad.getPrecio())
+                .estado(propiedad.isEstado())
+                .superficie(propiedad.getSuperficie())
+                .habitacion(propiedad.getHabitacion())
+                .banno(propiedad.getBanno())
+                .descripcion(propiedad.getDescripcion())
+                .build();
+    }
+
     // para eliminar una propiedad.
     public void eliminar(@NonNull Long id) {
         log.info("Eliminando propiedad con ID: {}", id);

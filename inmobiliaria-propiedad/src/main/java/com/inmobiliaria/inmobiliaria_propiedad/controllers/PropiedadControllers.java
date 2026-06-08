@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/Propiedad")
+@RequestMapping("/api/v1/propiedad")
 public class PropiedadControllers {
 
     private final PropiedadService propiedadService;
@@ -34,6 +34,13 @@ public class PropiedadControllers {
     public List<PropiedadResponse> listar() {
         log.info("Listando todas las propiedades");
         return propiedadService.obtenerTodos();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PropiedadResponse> obtenerPorId(
+            @PathVariable Long id) {
+        log.info("Buscando propiedad con ID: {}", id);
+        return ResponseEntity.ok(propiedadService.obtenerPorId(id));
     }
 
     @PostMapping

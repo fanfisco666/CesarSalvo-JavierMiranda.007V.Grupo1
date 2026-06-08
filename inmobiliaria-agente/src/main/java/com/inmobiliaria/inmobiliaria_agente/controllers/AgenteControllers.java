@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/agente")
+@RequestMapping("/api/v1/agente")
 public class AgenteControllers {
 
     private final AgenteService agenteService;
@@ -34,6 +34,12 @@ public class AgenteControllers {
     public List<AgenteResponse> listar() {
         log.info("Listando todos los agentes");
         return agenteService.obtenerTodos();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AgenteResponse> obtenerPorId(@PathVariable Long id) {
+        log.info("Buscando agente con ID: {}", id);
+        return ResponseEntity.ok(agenteService.obtenerPorId(id));
     }
 
     @PostMapping

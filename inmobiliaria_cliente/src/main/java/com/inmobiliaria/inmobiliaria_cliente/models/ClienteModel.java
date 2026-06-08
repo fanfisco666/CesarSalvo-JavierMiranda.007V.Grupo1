@@ -5,23 +5,23 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "CLIENTE")
+@Table(name = "cliente")
 public class ClienteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDCLIENTE")
+    @Column(name = "idCliente")
     private Long idCliente;
 
-    @Column(name = "RUTCLIENTE",nullable = false, unique = true, length = 13)
+    @Column(name = "rutCliente",nullable = false, unique = true, length = 13)
     private String rutCliente;
 
-    @Column(name = "NOMBRECLIENTE",nullable = false, length = 100)
+    @Column(name = "nombreCliente",nullable = false, length = 100)
     private String nombreCliente;
 
-    @Column(name = "APELLIDOSCLIENTE", nullable = false, length = 150)
+    @Column(name = "apellidosCliente", nullable = false, length = 150)
     private String apellidosCliente;
 
-    @Column(name = "CORREOCLIENTE",nullable = false, length = 150)
+    @Column(name = "correoCliente",nullable = false, length = 150)
     private String correoCliente;
 }

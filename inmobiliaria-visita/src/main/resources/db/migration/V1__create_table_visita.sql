@@ -1,4 +1,4 @@
-CREATE TABLE VISITA (
+CREATE TABLE visita (
 idVisita        BIGINT NOT NULL AUTO_INCREMENT,
 idCliente       BIGINT NOT NULL,
 idPropiedad     BIGINT NOT NULL,

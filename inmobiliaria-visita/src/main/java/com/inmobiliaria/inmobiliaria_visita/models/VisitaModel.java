@@ -7,32 +7,32 @@ import java.time.LocalTime;
 
 @Data
 @Entity
-@Table(name = "VISITA")
+@Table(name = "visita")
 public class VisitaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDVISITA")
+    @Column(name = "idVisita")
     private Long idVisita;
 
-    @Column(name = "IDCLIENTE", nullable = false)
+    @Column(name = "idCliente", nullable = false)
     private Long idCliente;
 
-    @Column(name = "IDPROPIEDAD", nullable = false)
+    @Column(name = "idPropiedad", nullable = false)
     private Long idPropiedad;
 
-    @Column(name = "IDAGENTE", nullable = false)
+    @Column(name = "idAgente", nullable = false)
     private Long idAgente;
 
-    @Column(name = "FECHAVISITA", nullable = false)
+    @Column(name = "fechaVisita", nullable = false)
     private LocalDate fechaVisita;
 
-    @Column(name = "HORAVISITA", nullable = false)
+    @Column(name = "horaVisita", nullable = false)
     private LocalTime horaVisita;
 
-    @Column(name = "ESTADO", nullable = false, length = 50)
+    @Column(name = "estado", nullable = false, length = 50)
     private String estado;
 
-    @Column(name = "OBSERVACIONES", length = 500)
+    @Column(name = "observaciones", length = 500)
     private String observaciones;
 }

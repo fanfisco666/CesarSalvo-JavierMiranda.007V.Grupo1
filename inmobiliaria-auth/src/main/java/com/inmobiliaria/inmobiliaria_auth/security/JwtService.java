@@ -3,6 +3,7 @@ package com.inmobiliaria.inmobiliaria_auth.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -12,11 +13,12 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "inmobiliaria-clave-secreta-jwt-2024-123456";
+    @Value("${jwt.secret}")
+    private String secretKey;
     private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hora
 
     private SecretKey getKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     // Agrega rol al token

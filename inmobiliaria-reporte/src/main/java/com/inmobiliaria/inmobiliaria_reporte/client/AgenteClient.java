@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.inmobiliaria.inmobiliaria_reporte.dtos.response.AgenteResponse;
 
-@FeignClient(name = "inmobiliaria-agente", url = "http://localhost:8083")
+@FeignClient(name = "inmobiliaria-agente", url = "http://inmobiliaria-agente:8083")
 public interface AgenteClient {
 
-    @GetMapping("/api/v1/agentes/{id}")
+    @GetMapping("/api/v1/agente/{id}")
     AgenteResponse obtenerAgentePorId(@PathVariable("id") Long id);
 }

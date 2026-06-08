@@ -1,4 +1,4 @@
-CREATE TABLE NOTIFICACION (
+CREATE TABLE notificacion (
 idNotificacion  BIGINT NOT NULL AUTO_INCREMENT,
 idCliente       BIGINT NOT NULL,
 tipo            VARCHAR(100) NOT NULL,

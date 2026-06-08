@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.inmobiliaria.inmobiliaria_reporte.dtos.response.ClienteResponse;
 
-@FeignClient(name = "cliente-service", url = "http://localhost:8081")
+@FeignClient(name = "inmobiliaria-cliente", url = "http://inmobiliaria-cliente:8081")
 public interface ClienteClient {
 
     @GetMapping("/api/v1/clientes/{id}")

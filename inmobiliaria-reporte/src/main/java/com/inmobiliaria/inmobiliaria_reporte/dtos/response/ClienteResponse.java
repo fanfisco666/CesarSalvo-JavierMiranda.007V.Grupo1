@@ -8,6 +8,6 @@ public class ClienteResponse {
     private Long idCliente;
     private String nombreCliente;
     private String apellidosCliente;
-    private String emailCliente;
+    private String correoCliente;
 
 }

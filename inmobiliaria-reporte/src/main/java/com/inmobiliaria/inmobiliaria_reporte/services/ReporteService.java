@@ -12,11 +12,12 @@ import com.inmobiliaria.inmobiliaria_reporte.dtos.response.ClienteResponse;
 import com.inmobiliaria.inmobiliaria_reporte.dtos.response.PropiedadResponse;
 import com.inmobiliaria.inmobiliaria_reporte.dtos.request.ReporteRequest;
 import com.inmobiliaria.inmobiliaria_reporte.dtos.response.ReporteResponse;
+import com.inmobiliaria.inmobiliaria_reporte.exceptions.NotFoundExceptions;
+import com.inmobiliaria.inmobiliaria_reporte.exceptions.RemoteServiceExceptions;
 import com.inmobiliaria.inmobiliaria_reporte.models.ReporteModel;
 import com.inmobiliaria.inmobiliaria_reporte.repositories.ReporteRepository;
 
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,27 +42,41 @@ public class ReporteService {
         this.clienteClient = clienteClient;
     }
 
-    // para listarlos todos
     public List<ReporteResponse> obtenerReportes() {
-
         log.info("Obteniendo lista de reportes");
-
         List<ReporteModel> reportes = reporteRepository.findAll();
+        log.info("Se encontraron {} reportes", reportes.size());
         return reportes.stream()
                 .map(this::mapToResponse)
                 .toList();
     }
 
-    // rara guardarlos
     public ReporteResponse guardar(ReporteRequest dto) {
-        log.info("Guardando nuevo reporte");
-        propiedadClient.obtenerPropiedadPorId(dto.getIdPropiedad());
-        agenteClient.obtenerAgentePorId(dto.getIdAgente());
-        clienteClient.obtenerClientePorId(dto.getIdUsuario());
+        log.info("Guardando nuevo reporte titulo: {}", dto.getTitulo());
 
-        // para crear el modelo
+        // Validar que los recursos externos existen antes de guardar
+        try {
+            propiedadClient.obtenerPropiedadPorId(dto.getIdPropiedad());
+        } catch (Exception e) {
+            log.warn("Propiedad ID: {} no encontrada", dto.getIdPropiedad());
+            throw new RemoteServiceExceptions("Propiedad con ID " + dto.getIdPropiedad() + " no encontrada");
+        }
+
+        try {
+            agenteClient.obtenerAgentePorId(dto.getIdAgente());
+        } catch (Exception e) {
+            log.warn("Agente ID: {} no encontrado", dto.getIdAgente());
+            throw new RemoteServiceExceptions("Agente con ID " + dto.getIdAgente() + " no encontrado");
+        }
+
+        try {
+            clienteClient.obtenerClientePorId(dto.getIdUsuario());
+        } catch (Exception e) {
+            log.warn("Cliente (usuario) ID: {} no encontrado", dto.getIdUsuario());
+            throw new RemoteServiceExceptions("Cliente con ID " + dto.getIdUsuario() + " no encontrado");
+        }
+
         ReporteModel modelo = new ReporteModel();
-
         modelo.setTitulo(dto.getTitulo());
         modelo.setDescripcion(dto.getDescripcion());
         modelo.setIdPropiedad(dto.getIdPropiedad());
@@ -70,23 +85,37 @@ public class ReporteService {
         modelo.setTipoReporte(dto.getTipoReporte());
 
         ReporteModel reporteGuardado = reporteRepository.save(modelo);
-
+        log.info("Reporte guardado con ID: {}", reporteGuardado.getIdReporte());
         return mapToResponse(reporteGuardado);
     }
 
-    // para actualizar
     public ReporteResponse actualizar(Long id, ReporteRequest dto) {
-
         log.info("Actualizando reporte con ID: {}", id);
 
         ReporteModel modelo = reporteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reporte no encontrado con ID: " + id));
+                .orElseThrow(() -> {
+                    log.warn("Reporte no encontrado con ID: {}", id);
+                    return new NotFoundExceptions("Reporte no encontrado con ID: " + id);
+                });
 
-        propiedadClient.obtenerPropiedadPorId(dto.getIdPropiedad());
-        agenteClient.obtenerAgentePorId(dto.getIdAgente());
-        clienteClient.obtenerClientePorId(dto.getIdUsuario());
+        try {
+            propiedadClient.obtenerPropiedadPorId(dto.getIdPropiedad());
+        } catch (Exception e) {
+            throw new RemoteServiceExceptions("Propiedad con ID " + dto.getIdPropiedad() + " no encontrada");
+        }
 
-        // para actualizar los datos
+        try {
+            agenteClient.obtenerAgentePorId(dto.getIdAgente());
+        } catch (Exception e) {
+            throw new RemoteServiceExceptions("Agente con ID " + dto.getIdAgente() + " no encontrado");
+        }
+
+        try {
+            clienteClient.obtenerClientePorId(dto.getIdUsuario());
+        } catch (Exception e) {
+            throw new RemoteServiceExceptions("Cliente con ID " + dto.getIdUsuario() + " no encontrado");
+        }
+
         modelo.setTitulo(dto.getTitulo());
         modelo.setDescripcion(dto.getDescripcion());
         modelo.setIdPropiedad(dto.getIdPropiedad());
@@ -95,59 +124,68 @@ public class ReporteService {
         modelo.setTipoReporte(dto.getTipoReporte());
 
         ReporteModel reporteActualizado = reporteRepository.save(modelo);
-
+        log.info("Reporte ID: {} actualizado", id);
         return mapToResponse(reporteActualizado);
     }
 
-    // para eliminar
-    public void eliminar(@NotNull Long id) {
-
+    public void eliminar(Long id) {
         log.info("Eliminando reporte con ID: {}", id);
-
         ReporteModel reporte = reporteRepository.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Reporte no encontrado con ID: {}", id);
-                    return new RuntimeException("Reporte no encontrado con ID: " + id);
+                    return new NotFoundExceptions("Reporte no encontrado con ID: " + id);
                 });
-
         reporteRepository.delete(reporte);
+        log.info("Reporte ID: {} eliminado", id);
     }
 
-    // optencion por id
     public ReporteResponse obtenerPorId(Long id) {
-
         log.info("Obteniendo reporte con ID: {}", id);
-
         ReporteModel reporte = reporteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reporte no encontrado con ID: " + id));
-
+                .orElseThrow(() -> {
+                    log.warn("Reporte no encontrado con ID: {}", id);
+                    return new NotFoundExceptions("Reporte no encontrado con ID: " + id);
+                });
         return mapToResponse(reporte);
     }
 
-    // para mapear
+    // --- mapToResponse con try-catch por cada llamada Feign ---
+    // Si un servicio externo falla o el ID no existe, retorna null en ese campo
+    // en lugar de explotar con 500
     private ReporteResponse mapToResponse(ReporteModel reporte) {
 
-        // para consumir el microservicio
-        PropiedadResponse propiedad = propiedadClient.obtenerPropiedadPorId(
-                reporte.getIdPropiedad());
+        PropiedadResponse propiedad = null;
+        try {
+            propiedad = propiedadClient.obtenerPropiedadPorId(reporte.getIdPropiedad());
+        } catch (Exception e) {
+            log.warn("No se pudo obtener propiedad ID: {} para reporte ID: {}",
+                    reporte.getIdPropiedad(), reporte.getIdReporte());
+        }
 
-        ClienteResponse cliente = clienteClient.obtenerClientePorId(
-                reporte.getIdUsuario());
+        ClienteResponse cliente = null;
+        try {
+            cliente = clienteClient.obtenerClientePorId(reporte.getIdUsuario());
+        } catch (Exception e) {
+            log.warn("No se pudo obtener cliente (usuario) ID: {} para reporte ID: {}",
+                    reporte.getIdUsuario(), reporte.getIdReporte());
+        }
 
-        AgenteResponse agente = agenteClient.obtenerAgentePorId(
-                reporte.getIdAgente());
+        AgenteResponse agente = null;
+        try {
+            agente = agenteClient.obtenerAgentePorId(reporte.getIdAgente());
+        } catch (Exception e) {
+            log.warn("No se pudo obtener agente ID: {} para reporte ID: {}",
+                    reporte.getIdAgente(), reporte.getIdReporte());
+        }
 
-        // construccion del response
         return ReporteResponse.builder()
                 .idReporte(reporte.getIdReporte())
                 .titulo(reporte.getTitulo())
                 .descripcion(reporte.getDescripcion())
                 .tipoReporte(reporte.getTipoReporte())
-
                 .propiedad(propiedad)
                 .cliente(cliente)
                 .agente(agente)
-
                 .build();
     }
 }

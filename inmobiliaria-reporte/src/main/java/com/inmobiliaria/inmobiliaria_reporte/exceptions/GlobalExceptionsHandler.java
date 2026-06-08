@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.inmobiliaria.inmobiliaria_reporte.dtos.response.ErrorResponse;
 
+import feign.FeignException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -41,9 +41,9 @@ public class GlobalExceptionsHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(NotFoundExceptions.class)
     public ResponseEntity<ErrorResponse> handleNotFound(
-            NotFoundException ex,
+            NotFoundExceptions ex,
             HttpServletRequest request) {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
@@ -73,4 +73,39 @@ public class GlobalExceptionsHandler {
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(errorResponse);
     }
 
+    // Captura errores de Feign (404, 500 de servicios remotos) antes de que se
+    // conviertan en un 500 genérico del servicio de reportes
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<ErrorResponse> handleFeignException(
+            FeignException ex,
+            HttpServletRequest request) {
+        int status = ex.status() > 0 ? ex.status() : 502;
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(status)
+                .error("Error comunicando con servicio externo")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .details(null)
+                .build();
+
+        return ResponseEntity.status(status).body(errorResponse);
+    }
+
+    // Captura cualquier excepción no manejada para evitar 500 genérico
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneric(
+            Exception ex,
+            HttpServletRequest request) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .error("Internal Server Error")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .details(null)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
 }
