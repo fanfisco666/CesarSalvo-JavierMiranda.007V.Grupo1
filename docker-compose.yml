@@ -2,6 +2,8 @@ version: '3.8'
 services:
 
   # ── BASES DE DATOS ──────────────────────────────────────
+  #para levantar base de datos sin instalar mysql
+  #docker-compose up -d mysql-clientes mysql-auth mysql-propiedades mysql-agentes mysql-visitas mysql-contratos mysql-pagos mysql-notificaciones mysql-reportes mysql-mantenciones
 
   mysql-clientes:
     image: mysql:8.0
@@ -182,6 +184,7 @@ services:
     ports:
       - "8088:8088"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-auth:3306/inmobiliaria_auth_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -196,6 +199,7 @@ services:
     ports:
       - "8081:8081"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-clientes:3306/inmobiliaria_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -210,6 +214,7 @@ services:
     ports:
       - "8082:8082"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-propiedades:3306/inmobiliaria_propiedades_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -224,6 +229,7 @@ services:
     ports:
       - "8083:8083"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-agentes:3306/inmobiliaria_agentes_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -238,6 +244,7 @@ services:
     ports:
       - "8087:8087"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-notificaciones:3306/inmobiliaria_notificaciones_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -252,6 +259,7 @@ services:
     ports:
       - "8084:8084"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-visitas:3306/inmobiliaria_visitas_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -274,6 +282,7 @@ services:
     ports:
       - "8085:8085"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-contratos:3306/inmobiliaria_contratos_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -298,6 +307,7 @@ services:
     ports:
       - "8086:8086"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-pagos:3306/inmobiliaria_pagos_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -318,6 +328,7 @@ services:
     ports:
       - "8089:8089"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-reportes:3306/inmobiliaria_reportes_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
@@ -332,12 +343,35 @@ services:
     ports:
       - "8090:8090"
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-mantenciones:3306/inmobiliaria_mantenciones_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Chochex1367*
     depends_on:
       mysql-mantenciones:
         condition: service_healthy
+
+  # ── EUREKA/APIGATEWAY ──────────────────────────────────────
+
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    restart: always
+    ports:
+      - "8761:8761"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - eureka-server
 
 volumes:
   mysql_clientes_data:
