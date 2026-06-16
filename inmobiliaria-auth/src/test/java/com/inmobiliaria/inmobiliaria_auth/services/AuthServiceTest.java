@@ -35,7 +35,6 @@ class AuthServiceTest {
 
     @InjectMocks
     private AuthService authService;
-
     private UsuarioModel usuario;
     private LoginRequest loginRequest;
 
@@ -55,7 +54,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("login - retorna token cuando credenciales son correctas")
-    void login_deberiaRetornarTokenConCredencialesCorrectas() {
+    void login_RetornarTokenConCredencialesCorrectas() {
         // Given
         when(usuarioRepository.findByUsername("admin")).thenReturn(Optional.of(usuario));
         when(jwtService.generarToken(anyString(), anyString())).thenReturn("token.jwt.test");
@@ -71,7 +70,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("login - lanza AuthException cuando usuario no existe")
-    void login_deberiaLanzarExcepcionCuandoUsuarioNoExiste() {
+    void login_LanzarExcepcionCuandoUsuarioNoExiste() {
         // Given
         when(usuarioRepository.findByUsername("noexiste")).thenReturn(Optional.empty());
         loginRequest.setUsername("noexiste");
@@ -84,7 +83,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("login - lanza AuthException cuando contraseña es incorrecta")
-    void login_deberiaLanzarExcepcionCuandoPasswordIncorrecta() {
+    void login_LanzarExcepcionCuandoPasswordIncorrecta() {
         // Given
         when(usuarioRepository.findByUsername("admin")).thenReturn(Optional.of(usuario));
         loginRequest.setPassword("wrongpassword");
@@ -97,7 +96,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("login - lanza AuthException cuando usuario está inactivo")
-    void login_deberiaLanzarExcepcionCuandoUsuarioInactivo() {
+    void login_LanzarExcepcionCuandoUsuarioInactivo() {
         // Given
         usuario.setActivo(false);
         when(usuarioRepository.findByUsername("admin")).thenReturn(Optional.of(usuario));
@@ -110,7 +109,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("register - registra usuario nuevo correctamente")
-    void register_deberiaRegistrarUsuarioNuevo() {
+    void register_RegistrarUsuarioNuevo() {
         // Given
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setUsername("nuevo");
@@ -139,7 +138,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("register - lanza AuthException cuando username ya existe")
-    void register_deberiaLanzarExcepcionCuandoUsernameExiste() {
+    void register_dLanzarExcepcionCuandoUsernameExiste() {
         // Given
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setUsername("admin");
@@ -151,5 +150,25 @@ class AuthServiceTest {
         assertThatThrownBy(() -> authService.register(registerRequest))
                 .isInstanceOf(AuthException.class)
                 .hasMessageContaining("username");
+    }
+
+    @Test
+    @DisplayName("register - asigna rol USER por defecto cuando no se especifica")
+    void register_AsignarRolUserPorDefecto() {
+        // Given
+        RegisterRequest requestSinRol = new RegisterRequest();
+        requestSinRol.setUsername("sinrol");
+        requestSinRol.setPassword("pass123");
+        requestSinRol.setRol(null); // sin rol
+
+        when(usuarioRepository.existsByUsername("sinrol")).thenReturn(false);
+        when(usuarioRepository.save(any(UsuarioModel.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(jwtService.generarToken("sinrol", "USER")).thenReturn("token.default");
+
+        // When
+        AuthResponse resultado = authService.register(requestSinRol);
+
+        // Then
+        assertThat(resultado.getRol()).isEqualTo("USER");
     }
 }

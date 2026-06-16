@@ -5,88 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="314d8731-d164-46bd-b144-1bd71f057b75" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka-server/dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application-test.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application-local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application-test.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/test/java/com/inmobiliaria/inmobiliaria_propiedad/services/PropiedadServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/InmobiliariaAgenteApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/java/com/inmobiliaria/inmobiliaria_agente/InmobiliariaAgenteApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/InmobiliariaAuthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/java/com/inmobiliaria/inmobiliaria_auth/InmobiliariaAuthApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/InmobiliariaContratoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/java/com/inmobiliaria/inmobiliaria_contrato/InmobiliariaContratoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/InmobiliariaMantencionApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/java/com/inmobiliaria/inmobiliaria_mantencion/InmobiliariaMantencionApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/java/com/inmobiliaria/inmobiliaria_notificacion/InmobiliariaNotificacionApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/java/com/inmobiliaria/inmobiliaria_notificacion/InmobiliariaNotificacionApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/InmobiliariaPagoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/java/com/inmobiliaria/inmobiliaria_pago/InmobiliariaPagoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/InmobiliariaPropiedadApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/java/com/inmobiliaria/inmobiliaria_propiedad/InmobiliariaPropiedadApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/InmobiliariaReporteApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/java/com/inmobiliaria/inmobiliaria_reporte/InmobiliariaReporteApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/InmobiliariaVisitaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/java/com/inmobiliaria/inmobiliaria_visita/InmobiliariaVisitaApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/InmobiliariaClienteApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/controllers/ClienteController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/dtos/request/ClienteRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/dtos/response/ClienteResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/dtos/response/ErrorResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/exceptions/GlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/exceptions/NotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/exceptions/RemoteServiceException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/models/ClienteModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/repositories/ClienteRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/java/com/inmobiliaria/inmobiliaria_cliente/services/ClienteService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application-local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/db/migration/V1__create_table_cliente.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/db/migration/V2__insert_seed_cliente.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/test/java/com/inmobiliaria/inmobiliaria_cliente/InmobiliariaClienteApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/test/java/com/inmobiliaria/inmobiliaria_agente/services/AgenteServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/test/java/com/inmobiliaria/inmobiliaria_agente/services/AgenteServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V2__insert_seed_propiedad.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V2__insert_seed_propiedad.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,25 +39,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Cesar/Desktop/CesarSalvo-JavierMiranda.007V-main/api-gateway",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Cesar/Desktop/CesarSalvo-JavierMiranda.007V-main/api-gateway&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Cesar\Desktop\CesarSalvo-JavierMiranda.007V-main\api-gateway" />

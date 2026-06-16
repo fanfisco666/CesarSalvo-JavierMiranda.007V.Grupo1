@@ -30,7 +30,6 @@ class AgenteServiceTest {
 
     @InjectMocks
     private AgenteService agenteService;
-
     private AgenteModel agenteModel;
     private AgenteRequest agenteRequest;
 
@@ -52,7 +51,7 @@ class AgenteServiceTest {
 
     @Test
     @DisplayName("obtenerTodos - retorna lista con todos los agentes")
-    void obtenerTodos_deberiaRetornarListaAgentes() {
+    void obtenerTodos_RetornarListaAgentes() {
         // Given
         when(agenteRepository.findAll()).thenReturn(List.of(agenteModel));
 
@@ -67,7 +66,7 @@ class AgenteServiceTest {
 
     @Test
     @DisplayName("obtenerPorId - retorna agente cuando existe")
-    void obtenerPorId_deberiaRetornarAgenteCuandoExiste() {
+    void obtenerPorId_RetornarAgenteExiste() {
         // Given
         when(agenteRepository.findById(1L)).thenReturn(Optional.of(agenteModel));
 
@@ -81,7 +80,7 @@ class AgenteServiceTest {
 
     @Test
     @DisplayName("obtenerPorId - lanza NotFoundExceptions cuando no existe")
-    void obtenerPorId_deberiaLanzarExcepcionCuandoNoExiste() {
+    void obtenerPorId_LanzarExcepcionCuandoNoExiste() {
         // Given
         when(agenteRepository.findById(99L)).thenReturn(Optional.empty());
 
@@ -93,7 +92,7 @@ class AgenteServiceTest {
 
     @Test
     @DisplayName("guardar - persiste agente y retorna response")
-    void guardar_deberiaPersistirAgenteYRetornarResponse() {
+    void guardar_PersistirAgenteYRetornarResponse() {
         // Given
         when(agenteRepository.save(any(AgenteModel.class))).thenReturn(agenteModel);
 
@@ -108,7 +107,7 @@ class AgenteServiceTest {
 
     @Test
     @DisplayName("eliminar - elimina agente existente sin errores")
-    void eliminar_deberiaEliminarAgenteExistente() {
+    void eliminar_EliminarAgenteExistente() {
         // Given
         when(agenteRepository.findById(1L)).thenReturn(Optional.of(agenteModel));
         doNothing().when(agenteRepository).delete(agenteModel);
@@ -122,12 +121,57 @@ class AgenteServiceTest {
 
     @Test
     @DisplayName("eliminar - lanza NotFoundExceptions cuando agente no existe")
-    void eliminar_deberiaLanzarExcepcionCuandoAgenteNoExiste() {
+    void eliminar_LanzarExcepcionAgenteNoExiste() {
         // Given
         when(agenteRepository.findById(99L)).thenReturn(Optional.empty());
 
         // When / Then
         assertThatThrownBy(() -> agenteService.eliminar(99L))
                 .isInstanceOf(NotFoundExceptions.class);
+    }
+
+    @Test
+    @DisplayName("actualizar - actualiza agente existente y retorna response actualizado")
+    void actualizar_ActualizarAgenteExistente() {
+        // Given
+        AgenteRequest requestActualizado = new AgenteRequest();
+        requestActualizado.setRutAgente("22222222-2");
+        requestActualizado.setNombreAgente("Carlos Actualizado");
+        requestActualizado.setApellidosAgente("González Pérez");
+        requestActualizado.setCorreoAgente("carlos.nuevo@test.com");
+
+        AgenteModel agenteActualizado = new AgenteModel();
+        agenteActualizado.setIdAgente(1L);
+        agenteActualizado.setRutAgente("22222222-2");
+        agenteActualizado.setNombreAgente("Carlos Actualizado");
+        agenteActualizado.setApellidosAgente("González Pérez");
+        agenteActualizado.setCorreoAgente("carlos.nuevo@test.com");
+
+        when(agenteRepository.findById(1L)).thenReturn(Optional.of(agenteModel));
+        when(agenteRepository.save(any(AgenteModel.class))).thenReturn(agenteActualizado);
+
+        // When
+        AgenteResponse resultado = agenteService.actualizar(1L, requestActualizado);
+
+        // Then
+        assertThat(resultado.getNombreAgente()).isEqualTo("Carlos Actualizado");
+        assertThat(resultado.getRutAgente()).isEqualTo("22222222-2");
+        assertThat(resultado.getCorreoAgente()).isEqualTo("carlos.nuevo@test.com");
+        verify(agenteRepository, times(1)).findById(1L);
+        verify(agenteRepository, times(1)).save(any(AgenteModel.class));
+    }
+
+    @Test
+    @DisplayName("actualizar - lanza NotFoundExceptions cuando agente no existe")
+    void actualizar_LanzarExcepcionAgenteNoExiste() {
+        // Given
+        when(agenteRepository.findById(99L)).thenReturn(Optional.empty());
+
+        // When / Then
+        assertThatThrownBy(() -> agenteService.actualizar(99L, agenteRequest))
+                .isInstanceOf(NotFoundExceptions.class)
+                .hasMessageContaining("99");
+
+        verify(agenteRepository, never()).save(any(AgenteModel.class));
     }
 }

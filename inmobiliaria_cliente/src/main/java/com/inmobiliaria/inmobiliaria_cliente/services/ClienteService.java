@@ -113,7 +113,12 @@ public class ClienteService {
 
     public void eliminar(Long id) {
         log.warn("Eliminando cliente con ID: {}", id);
-        clienteRepository.deleteById(id);
+        ClienteModel cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Cliente con ID {} no encontrado", id);
+                    return new NotFoundException("Cliente con ID " + id + " no encontrado");
+                });
+        clienteRepository.delete(cliente);
         log.info("Cliente con ID {} eliminado exitosamente", id);
     }
 }

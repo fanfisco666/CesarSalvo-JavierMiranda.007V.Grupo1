@@ -8,4 +8,4 @@ INSERT INTO propiedad (titulo, direccion, tipo, precio, superficie_m2, habitacio
 ('Monoambiente Estudiantil', 'Calle Universitaria 12, Córdoba', 'Departamento', 75000.0, 35.0, 1, 1, 'Departamento pequeño y funcional, excelente ubicación cerca de facultades.'),
 ('Duplex Minimalista', 'Pasaje Silencio 4, Barrio Norte', 'Departamento', 280000.0, 110.0, 2, 2, 'Diseño minimalista en dos niveles, cocina integrada y balcón aterrazado.'),
 ('Residencia Los Olivos', 'Km 12 Vía Campestre, Madrid', 'Casa', 1200000.0, 500.0, 5, 5, 'Mansión de lujo con acabados de mármol, cancha de tenis y casa de huéspedes.'),
-                                                                                                              ('Local Comercial Céntrico', 'Calle Mayor 10, Centro Histórico', 'Local', 600000.0, 150.0, 0, 2, 'Local comercial con gran flujo peatonal y vidriera amplia a la calle.');
+('Local Comercial Céntrico', 'Calle Mayor 10, Centro Histórico', 'Local', 600000.0, 150.0, 0, 2, 'Local comercial con gran flujo peatonal y vidriera amplia a la calle.');

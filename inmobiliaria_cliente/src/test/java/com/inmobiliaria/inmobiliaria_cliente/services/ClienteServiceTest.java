@@ -30,7 +30,6 @@ class ClienteServiceTest {
 
     @InjectMocks
     private ClienteService clienteService;
-
     private ClienteModel clienteModel;
     private ClienteRequest clienteRequest;
 
@@ -52,7 +51,7 @@ class ClienteServiceTest {
 
     @Test
     @DisplayName("obtenerTodos - retorna lista de clientes")
-    void obtenerTodos_deberiaRetornarListaClientes() {
+    void obtenerTodos_RetornarListaClientes() {
         // Given
         when(clienteRepository.findAll()).thenReturn(List.of(clienteModel));
 
@@ -68,7 +67,7 @@ class ClienteServiceTest {
 
     @Test
     @DisplayName("obtenerTodos - retorna lista vacía cuando no hay clientes")
-    void obtenerTodos_deberiaRetornarListaVacia() {
+    void obtenerTodos_RetornarListaVacia() {
         // Given
         when(clienteRepository.findAll()).thenReturn(List.of());
 
@@ -81,7 +80,7 @@ class ClienteServiceTest {
 
     @Test
     @DisplayName("obtenerPorId - retorna cliente cuando existe")
-    void obtenerPorId_deberiaRetornarClienteCuandoExiste() {
+    void obtenerPorId_RetornarClienteExiste() {
         // Given
         when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteModel));
 
@@ -96,7 +95,7 @@ class ClienteServiceTest {
 
     @Test
     @DisplayName("obtenerPorId - lanza NotFoundException cuando no existe")
-    void obtenerPorId_deberiaLanzarExcepcionCuandoNoExiste() {
+    void obtenerPorId_LanzarExcepcionCuandoNoExiste() {
         // Given
         when(clienteRepository.findById(99L)).thenReturn(Optional.empty());
 
@@ -119,6 +118,31 @@ class ClienteServiceTest {
         assertThat(resultado.getRutCliente()).isEqualTo("12345678-9");
         assertThat(resultado.getNombreCliente()).isEqualTo("Juan");
         verify(clienteRepository, times(1)).save(any(ClienteModel.class));
+    }
+
+    @Test
+    @DisplayName("eliminar - elimina cliente por ID")
+    void eliminar_EliminarClientePorId() {
+        // Given
+        when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteModel));
+        doNothing().when(clienteRepository).delete(clienteModel);
+
+        // When
+        clienteService.eliminar(1L);
+
+        // Then
+        verify(clienteRepository, times(1)).delete(clienteModel);
+    }
+
+    @Test
+    @DisplayName("eliminar - lanza NotFoundExceptions cuando cliente no existe")
+    void eliminar_LanzarExcepcionClienteNoExiste() {
+        // Given
+        when(clienteRepository.findById(99L)).thenReturn(Optional.empty());
+
+        // When / Then
+        assertThatThrownBy(() -> clienteService.eliminar(99L))
+                .isInstanceOf(NotFoundException.class);
     }
 
     @Test
@@ -157,19 +181,10 @@ class ClienteServiceTest {
 
         // When / Then
         assertThatThrownBy(() -> clienteService.actualizar(99L, clienteRequest))
-                .isInstanceOf(NotFoundException.class);
+                .isInstanceOf(NotFoundException.class)
+                .hasMessageContaining("99");
+        verify(clienteRepository, never()).save(any(ClienteModel.class));
     }
 
-    @Test
-    @DisplayName("eliminar - elimina cliente por ID")
-    void eliminar_deberiaEliminarClientePorId() {
-        // Given
-        doNothing().when(clienteRepository).deleteById(1L);
 
-        // When
-        clienteService.eliminar(1L);
-
-        // Then
-        verify(clienteRepository, times(1)).deleteById(1L);
-    }
 }
