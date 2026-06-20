@@ -6,15 +6,22 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 
+@Schema(description = "DTO para la respuesta de un error")
 @Data
 @Builder
 public class ErrorResponse {
 
+    @Schema(description = "Estado HTTP")
     private int status;
+    @Schema(description = "Tipo de error")
     private String error;
+    @Schema(description = "Mensaje de error")
     private String message;
+    @Schema(description = "Ruta de la solicitud que causó el error")
     private String path;
+    @Schema(description = "Marca de tiempo del error")
     private LocalDateTime timestamp;
+    @Schema(description = "Detalles adicionales del error")
     private Map<String, String> details;
 
 }
