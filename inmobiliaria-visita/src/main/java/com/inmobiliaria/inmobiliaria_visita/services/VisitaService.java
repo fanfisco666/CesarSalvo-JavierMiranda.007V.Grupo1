@@ -31,10 +31,10 @@ public class VisitaService {
     private final NotificacionClient notificacionClient;
 
     public VisitaService(VisitaRepository visitaRepository,
-                         ClienteClient clienteClient,
-                         PropiedadClient propiedadClient,
-                         AgenteClient agenteClient,
-                         NotificacionClient notificacionClient) {
+            ClienteClient clienteClient,
+            PropiedadClient propiedadClient,
+            AgenteClient agenteClient,
+            NotificacionClient notificacionClient) {
         this.visitaRepository = visitaRepository;
         this.clienteClient = clienteClient;
         this.propiedadClient = propiedadClient;
@@ -93,7 +93,7 @@ public class VisitaService {
 
         // Regla 2 — validar que propiedad existe y está disponible
         try {
-            var propiedad = propiedadClient.obtenerPropiedadPorId(dto.getIdPropiedad());
+            propiedadClient.obtenerPropiedadPorId(dto.getIdPropiedad());
             log.info("Propiedad ID: {} validada", dto.getIdPropiedad());
         } catch (Exception e) {
             log.warn("Propiedad ID: {} no encontrada", dto.getIdPropiedad());
@@ -132,8 +132,7 @@ public class VisitaService {
                     visitaGuardada.getIdCliente(),
                     "VISITA_AGENDADA",
                     "Su visita ha sido agendada para el " + visitaGuardada.getFechaVisita(),
-                    "VISITA-" + visitaGuardada.getIdVisita()
-            ));
+                    "VISITA-" + visitaGuardada.getIdVisita()));
             log.info("Notificacion enviada para visita ID: {}", visitaGuardada.getIdVisita());
         } catch (Exception e) {
             log.warn("No se pudo enviar notificacion para visita ID: {}", visitaGuardada.getIdVisita());
@@ -177,8 +176,7 @@ public class VisitaService {
                     visitaActualizada.getIdCliente(),
                     "VISITA_CANCELADA",
                     "Su visita del " + visitaActualizada.getFechaVisita() + " ha sido " + nuevoEstado,
-                    "VISITA-" + visitaActualizada.getIdVisita()
-            ));
+                    "VISITA-" + visitaActualizada.getIdVisita()));
             log.info("Notificacion de cambio estado enviada para visita ID: {}", id);
         } catch (Exception e) {
             log.warn("No se pudo enviar notificacion de estado para visita ID: {}", id);

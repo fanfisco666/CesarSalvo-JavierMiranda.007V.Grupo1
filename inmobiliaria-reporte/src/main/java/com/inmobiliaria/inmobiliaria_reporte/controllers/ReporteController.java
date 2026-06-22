@@ -6,6 +6,9 @@ import com.inmobiliaria.inmobiliaria_reporte.dtos.request.ReporteRequest;
 import com.inmobiliaria.inmobiliaria_reporte.dtos.response.ReporteResponse;
 import com.inmobiliaria.inmobiliaria_reporte.services.ReporteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
