@@ -5,11 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="314d8731-d164-46bd-b144-1bd71f057b75" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/test/java/com/inmobiliaria/inmobiliaria_propiedad/services/PropiedadServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application-local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/test/java/com/inmobiliaria/inmobiliaria_agente/services/AgenteServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/test/java/com/inmobiliaria/inmobiliaria_agente/services/AgenteServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V2__insert_seed_propiedad.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/db/migration/V2__insert_seed_propiedad.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-agente/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-auth/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-contrato/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-mantencion/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-notificacion/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-pago/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-propiedad/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-reporte/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria-visita/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inmobiliaria_cliente/src/main/resources/application-dev.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +69,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Cesar/Desktop/CesarSalvo-JavierMiranda.007V-main/api-gateway&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Cesar/Desktop/CesarSalvo-JavierMiranda.007V-main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,

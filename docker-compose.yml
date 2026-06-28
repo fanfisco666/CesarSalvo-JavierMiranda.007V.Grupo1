@@ -367,7 +367,7 @@ services:
     container_name: api-gateway
     restart: always
     ports:
-      - "8080:8080"
+      - "8100:8100"
     environment:
       SPRING_PROFILES_ACTIVE: dev
     depends_on:
@@ -384,3 +384,4 @@ volumes:
   mysql_notificaciones_data:
   mysql_reportes_data:
   mysql_mantenciones_data:
+
